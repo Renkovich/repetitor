@@ -794,11 +794,7 @@
 </footer>
 
 <script>
-  document.getElementById('lead-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('success').style.display = 'block';
-  });
+  // Form submits natively to Formspree
 
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
