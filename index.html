@@ -619,12 +619,12 @@
     <div class="stats-card">
       <div class="stats-grid">
         <div class="stat-item">
-          <span class="stat-num">95%</span>
-          <div class="stat-label">сдают ОГЭ/ЕГЭ<br>с первого раза</div>
+          <span class="stat-num">5 лет</span>
+          <div class="stat-label">в сфере<br>репетиторства</div>
         </div>
         <div class="stat-item">
-          <span class="stat-num">+30</span>
-          <div class="stat-label">баллов в среднем<br>за 3 месяца</div>
+          <span class="stat-num">1 мес</span>
+          <div class="stat-label">результат<br>виден за месяц</div>
         </div>
         <div class="stat-item">
           <span class="stat-num">1–2</span>
@@ -647,13 +647,13 @@
     <span>Подготовка к ЕГЭ</span><span class="strip-dot">·</span>
     <span>Первое занятие бесплатно</span><span class="strip-dot">·</span>
     <span>Индивидуальный подход</span><span class="strip-dot">·</span>
-    <span>Онлайн и очно</span><span class="strip-dot">·</span>
+    <span>Только онлайн</span><span class="strip-dot">·</span>
     <span>Математика</span><span class="strip-dot">·</span>
     <span>Подготовка к ОГЭ</span><span class="strip-dot">·</span>
     <span>Подготовка к ЕГЭ</span><span class="strip-dot">·</span>
     <span>Первое занятие бесплатно</span><span class="strip-dot">·</span>
     <span>Индивидуальный подход</span><span class="strip-dot">·</span>
-    <span>Онлайн и очно</span><span class="strip-dot">·</span>
+    <span>Только онлайн</span><span class="strip-dot">·</span>
   </div>
 </div>
 
@@ -758,16 +758,16 @@
       <p class="form-subtitle">Оставьте заявку. Я свяжусь в течение часа, уточню уровень и цель, назначим удобное время.</p>
       <div class="trust-items">
         <div class="trust-item"><div class="trust-dot"></div>Без обязательств — просто попробуйте</div>
-        <div class="trust-item"><div class="trust-dot"></div>Занятие онлайн или очно</div>
+        <div class="trust-item"><div class="trust-dot"></div>Занятие онлайн</div>
         <div class="trust-item"><div class="trust-dot"></div>Отвечу в течение часа</div>
         <div class="trust-item"><div class="trust-dot"></div>Индивидуальный план после пробного</div>
       </div>
     </div>
     <div class="form-right">
-      <form id="lead-form">
-        <input type="text" placeholder="Имя родителя или ученика" required />
-        <input type="tel" placeholder="Номер телефона" required />
-        <select required>
+      <form id="lead-form" action="https://formspree.io/f/mgobayyd" method="POST">
+        <input type="text" name="name" placeholder="Имя родителя или ученика" required />
+        <input type="tel" name="phone" placeholder="Номер телефона" required />
+        <select name="grade" required>
           <option value="" disabled selected>Класс ученика</option>
           <option>5 класс</option>
           <option>6 класс</option>
@@ -777,11 +777,9 @@
           <option>10 класс</option>
           <option>11 класс — ЕГЭ</option>
         </select>
-        <select>
+        <select name="format">
           <option value="" disabled selected>Удобный формат</option>
           <option>Онлайн</option>
-          <option>Очно</option>
-          <option>Не важно</option>
         </select>
         <button type="submit" class="form-submit">ЗАПИСАТЬСЯ НА ПРОБНОЕ →</button>
         <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
