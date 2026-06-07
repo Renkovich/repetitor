@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Репетитор по математике | ОГЭ и ЕГЭ</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Mulish:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --accent: #e8ff47;
+    --gray: #1a1a1a;
+    --muted: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Mulish', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,255,71,0.12) 0%, transparent 70%);
+    top: -100px; right: 100px;
+    border-radius: 50%;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero-left {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,255,71,0.1);
+    border: 1px solid rgba(232,255,71,0.3);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    color: #aaa;
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 40px;
+    font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+    border: none;
+    padding: 18px 36px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(232,255,71,0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 18px 36px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    background: rgba(232,255,71,0.05);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+  }
+
+  .big-number {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(120px, 16vw, 220px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(232,255,71,0.15);
+    line-height: 1;
+    position: absolute;
+    right: 20px;
+    user-select: none;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .stats-card {
+    background: var(--gray);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* STRIP */
+  .strip {
+    background: var(--accent);
+    padding: 16px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .strip-inner {
+    display: inline-flex;
+    animation: marquee 20s linear infinite;
+    gap: 48px;
+  }
+
+  .strip span {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .strip-dot {
+    color: rgba(0,0,0,0.3) !important;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTION */
+  section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+
+  /* PROBLEMS */
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .problem-card {
+    background: var(--gray);
+    padding: 40px 32px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .problem-card:hover {
+    background: #222;
+  }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--accent);
+    transition: height 0.4s ease;
+  }
+
+  .problem-card:hover::before {
+    height: 100%;
+  }
+
+  .problem-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .problem-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .problem-text {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* HOW IT WORKS */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 0;
+  }
+
+  .step {
+    padding: 40px 28px;
+    background: var(--gray);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(232,255,71,0.3);
+    margin-bottom: 20px;
+    display: block;
+    line-height: 1;
+  }
+
+  .step-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .step-text {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* EXAM BLOCK */
+  .exam-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .exam-card {
+    background: var(--gray);
+    padding: 48px 40px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exam-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+  }
+
+  .exam-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .exam-desc {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .exam-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .exam-points li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #ccc;
+  }
+
+  .exam-points li::before {
+    content: '→';
+    color: var(--accent);
+    font-family: monospace;
+    flex-shrink: 0;
+  }
+
+  /* FORM */
+  .form-section {
+    background: var(--gray);
+    border-radius: 16px;
+    padding: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .form-left .section-title {
+    margin-bottom: 20px;
+  }
+
+  .form-subtitle {
+    color: #888;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .trust-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #aaa;
+  }
+
+  .trust-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  input, select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 18px 20px;
+    color: var(--white);
+    font-family: 'Mulish', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder { color: #555; }
+
+  input:focus, select:focus {
+    border-color: var(--accent);
+    background: rgba(232,255,71,0.03);
+  }
+
+  select option {
+    background: #1a1a1a;
+    color: var(--white);
+  }
+
+  .form-submit {
+    background: var(--accent);
+    color: var(--black);
+    border: none;
+    padding: 20px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 8px;
+  }
+
+  .form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(232,255,71,0.3);
+  }
+
+  .form-note {
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* SUCCESS */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .success-msg h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .success-msg p {
+    color: #888;
+    font-size: 15px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--accent);
+  }
+
+  .footer-note {
+    font-size: 13px;
+    color: #444;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 40px 24px; }
+    section { padding: 60px 24px; }
+    .problems-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .exam-row { grid-template-columns: 1fr; }
+    .form-section { grid-template-columns: 1fr; padding: 40px 24px; gap: 40px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 24px; }
+  }
+
+  @media (max-width: 500px) {
+    .steps { grid-template-columns: 1fr; }
+    .cta-group { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="badge">Математика · ОГЭ · ЕГЭ</div>
+    <h1>Понять математику,<br>а не<br><span>зазубрить</span></h1>
+    <p class="hero-desc">Индивидуальные занятия с репетитором. Объясняю через логику — результат виден уже через месяц. Первое занятие бесплатно.</p>
+    <div class="cta-group">
+      <a href="#form" class="btn-primary">Записаться бесплатно</a>
+      <a href="#how" class="btn-secondary">Как это работает</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="big-number">∑</div>
+    <div class="stats-card">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-num">95%</span>
+          <div class="stat-label">сдают ОГЭ/ЕГЭ<br>с первого раза</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">+30</span>
+          <div class="stat-label">баллов в среднем<br>за 3 месяца</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">1–2</span>
+          <div class="stat-label">занятия в неделю<br>по 60 минут</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">0 ₽</span>
+          <div class="stat-label">первое пробное<br>занятие</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <span>Математика</span><span class="strip-dot">·</span>
+    <span>Подготовка к ОГЭ</span><span class="strip-dot">·</span>
+    <span>Подготовка к ЕГЭ</span><span class="strip-dot">·</span>
+    <span>Первое занятие бесплатно</span><span class="strip-dot">·</span>
+    <span>Индивидуальный подход</span><span class="strip-dot">·</span>
+    <span>Онлайн и очно</span><span class="strip-dot">·</span>
+    <span>Математика</span><span class="strip-dot">·</span>
+    <span>Подготовка к ОГЭ</span><span class="strip-dot">·</span>
+    <span>Подготовка к ЕГЭ</span><span class="strip-dot">·</span>
+    <span>Первое занятие бесплатно</span><span class="strip-dot">·</span>
+    <span>Индивидуальный подход</span><span class="strip-dot">·</span>
+    <span>Онлайн и очно</span><span class="strip-dot">·</span>
+  </div>
+</div>
+
+<!-- PROBLEMS -->
+<section>
+  <div class="section-label">Проблема</div>
+  <div class="section-title">Почему математика<br>не даётся?</div>
+  <div class="problems-grid">
+    <div class="problem-card">
+      <span class="problem-icon">😤</span>
+      <div class="problem-title">Объясняют непонятно</div>
+      <p class="problem-text">В школе учитель объясняет на весь класс. Ребёнок не понял — тема закрыта. Пробелы накапливаются годами.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">📝</span>
+      <div class="problem-title">Зазубривают формулы</div>
+      <p class="problem-text">Большинство репетиторов дрессируют на шаблонные задачи. На экзамене — чуть другой тип, и всё рассыпается.</p>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">⏰</span>
+      <div class="problem-title">Нет системы</div>
+      <p class="problem-text">Занятия хаотичные: сегодня одна тема, завтра другая. Без плана результат непредсказуем.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="padding-top: 0;">
+  <div class="section-label">Подход</div>
+  <div class="section-title">Как проходят занятия</div>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <div class="step-title">Диагностика</div>
+      <p class="step-text">На пробном занятии выявляем конкретные пробелы. Понимаем, что мешает росту прямо сейчас.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <div class="step-title">Личный план</div>
+      <p class="step-text">Составляем маршрут под ученика: от слабых мест — к уверенному решению задач любого уровня.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <div class="step-title">Занятия</div>
+      <p class="step-text">Объясняю логику, а не алгоритмы. Ученик понимает, почему это работает — и не забывает.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">04</span>
+      <div class="step-title">Результат</div>
+      <p class="step-text">Регулярные контрольные срезы. Родители видят прогресс. Оценки растут в течение первого месяца.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMS -->
+<section style="padding-top: 0;">
+  <div class="section-label">Направления</div>
+  <div class="section-title">Выбери свою цель</div>
+  <div class="exam-row" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="exam-card">
+      <span class="exam-tag">5–8 класс</span>
+      <div class="exam-title">Школьная<br>программа</div>
+      <p class="exam-desc">Закрываем пробелы, поднимаем оценки. Готовимся к контрольным и ВПР.</p>
+      <ul class="exam-points">
+        <li>Работа по школьной программе</li>
+        <li>Устранение пробелов</li>
+        <li>Подготовка к контрольным и ВПР</li>
+        <li>Обратная связь родителям</li>
+      </ul>
+    </div>
+    <div class="exam-card">
+      <span class="exam-tag">9 класс</span>
+      <div class="exam-title">Подготовка<br>к ОГЭ</div>
+      <p class="exam-desc">Закрываем все темы кодификатора. Тренируемся на реальных вариантах. Цель — 4 и 5.</p>
+      <ul class="exam-points">
+        <li>Алгебра и геометрия</li>
+        <li>Разбор всех типов задач</li>
+        <li>Работа с реальными вариантами ОГЭ</li>
+        <li>Уверенность на экзамене</li>
+      </ul>
+    </div>
+    <div class="exam-card">
+      <span class="exam-tag">11 класс</span>
+      <div class="exam-title">Подготовка<br>к ЕГЭ</div>
+      <p class="exam-desc">Базовый и профильный уровень. Разбираем задания первой и второй части. Цель — 75+.</p>
+      <ul class="exam-points">
+        <li>Профильная и базовая математика</li>
+        <li>Задания C-уровня (вторая часть)</li>
+        <li>Разбор ошибок и слабых мест</li>
+        <li>Стратегия на экзамен</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section id="form" style="padding-top: 0;">
+  <div class="form-section">
+    <div class="form-left">
+      <div class="section-label">Старт</div>
+      <div class="section-title">Первое занятие — бесплатно</div>
+      <p class="form-subtitle">Оставьте заявку. Я свяжусь в течение часа, уточню уровень и цель, назначим удобное время.</p>
+      <div class="trust-items">
+        <div class="trust-item"><div class="trust-dot"></div>Без обязательств — просто попробуйте</div>
+        <div class="trust-item"><div class="trust-dot"></div>Занятие онлайн или очно</div>
+        <div class="trust-item"><div class="trust-dot"></div>Отвечу в течение часа</div>
+        <div class="trust-item"><div class="trust-dot"></div>Индивидуальный план после пробного</div>
+      </div>
+    </div>
+    <div class="form-right">
+      <form id="lead-form">
+        <input type="text" placeholder="Имя родителя или ученика" required />
+        <input type="tel" placeholder="Номер телефона" required />
+        <select required>
+          <option value="" disabled selected>Класс ученика</option>
+          <option>5 класс</option>
+          <option>6 класс</option>
+          <option>7 класс</option>
+          <option>8 класс</option>
+          <option>9 класс — ОГЭ</option>
+          <option>10 класс</option>
+          <option>11 класс — ЕГЭ</option>
+        </select>
+        <select>
+          <option value="" disabled selected>Удобный формат</option>
+          <option>Онлайн</option>
+          <option>Очно</option>
+          <option>Не важно</option>
+        </select>
+        <button type="submit" class="form-submit">ЗАПИСАТЬСЯ НА ПРОБНОЕ →</button>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+      </form>
+      <div class="success-msg" id="success">
+        <h3>Заявка принята! ✓</h3>
+        <p>Свяжусь с вами в течение часа и договоримся о времени пробного занятия.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">МАТЕМАТИКА</div>
+  <div class="footer-note">Репетитор по математике · ОГЭ и ЕГЭ · Первое занятие бесплатно</div>
+</footer>
+
+<script>
+  document.getElementById('lead-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.problem-card, .step, .exam-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
