@@ -583,8 +583,9 @@
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: flex; padding: 0 24px 40px; }
+    .big-number { display: none; }
     .hero-left { padding: 40px 24px; }
     section { padding: 60px 24px; }
     .problems-grid { grid-template-columns: 1fr; }
