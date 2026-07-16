@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Репетитор по математике | ОГЭ, ЕГЭ и 5–11 классы</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Mulish:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --accent: #e8ff47;
+    --gray: #1a1a1a;
+    --muted: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Mulish', sans-serif;
+  }
+
+  /* НАВИГАЦИЯ / НАЗАД */
+  .back-nav {
+    padding: 30px 24px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .btn-back {
+    font-family: 'Unbounded', sans-serif;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-back:hover {
+    color: var(--accent);
+  }
+
+  /* HERO */
+  section {
+    padding: 60px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,255,71,0.1);
+    border: 1px solid rgba(232,255,71,0.3);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  h1 span { color: var(--accent); }
+
+  .desc {
+    font-size: 18px;
+    color: #ccc;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  /* ПРЕИМУЩЕСТВА */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .feature-card {
+    background: var(--gray);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 24px;
+    border-radius: 12px;
+  }
+  .feature-card h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .feature-card p {
+    font-size: 14px;
+    color: #999;
+    line-height: 1.6;
+  }
+
+  /* ФОРМА */
+  .form-box {
+    background: var(--gray);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 40px;
+  }
+  .form-box h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .form-box p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  input, select {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 16px;
+    color: var(--white);
+    font-family: 'Mulish', sans-serif;
+    font-size: 15px;
+    outline: none;
+    width: 100%;
+  }
+  input:focus, select:focus {
+    border-color: var(--accent);
+  }
+
+  .btn-submit {
+    background: var(--accent);
+    color: var(--black);
+    border: none;
+    padding: 18px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: transform 0.2s;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; gap: 40px; }
+    .features { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="back-nav">
+  <a href="index.html" class="btn-back">← На главную</a>
+</div>
+
+<section>
+  <div class="grid">
+    <div>
+      <div class="badge">Математика 5–11 класс</div>
+      <h1>Пойми <span>логику</span> чисел</h1>
+      <p class="desc">Мы не будем заставлять тебя зазубривать сотни формул. Вместо этого ты поймешь, откуда они берутся. Подготовка к ОГЭ/ЕГЭ, разбор сложных тем и помощь со школьной программой в спокойном темпе.</p>
+      
+      <div class="features">
+        <div class="feature-card">
+          <h3>Подготовка к ОГЭ и ЕГЭ</h3>
+          <p>Разбираем структуру экзамена, учимся не терять баллы на простых задачах и правильно оформлять вторую часть.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Устранение пробелов</h3>
+          <p>Поймем дроби, тригонометрию или геометрию раз и навсегда. Простыми словами на жизненных примерах.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-box">
+        <h2>Записаться на пробное</h2>
+        <p>Первое занятие — бесплатное. Познакомимся, определим твой уровень и составим план обучения.</p>
+        <form action="https://formspree.io/f/mgobayyd" method="POST">
+          <!-- Скрытое поле, чтобы знать, что заявка пришла именно со страницы математики -->
+          <input type="hidden" name="subject" value="Математика">
+          
+          <input type="text" name="name" placeholder="Твое имя" required>
+          <input type="tel" name="phone" placeholder="Номер телефона" required>
+          <select name="grade" required>
+            <option value="" disabled selected>Класс</option>
+            <option>5-8 класс</option>
+            <option>9 класс (ОГЭ)</option>
+            <option>10 класс</option>
+            <option>11 класс (ЕГЭ)</option>
+          </select>
+          <button type="submit" class="btn-submit">ХОЧУ НА ПРОБНОЕ →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
