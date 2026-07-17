@@ -124,7 +124,7 @@
       margin: 0 4px;
     }
 
-    .hero-buttons {
+    hero-buttons {
       display: flex;
       gap: 16px;
       margin-bottom: 64px;
@@ -418,6 +418,14 @@
       font-size: 18px;
       font-weight: 700;
       color: var(--white);
+    }
+    .price-notice {
+      display: block;
+      font-size: 11px;
+      color: #666;
+      margin-top: 6px;
+      line-height: 1.3;
+      padding: 0 10px;
     }
 
     /* Правая колонка */
@@ -785,10 +793,11 @@
           <span id="teacher-experience" class="teacher-badge">опыт 5 лет</span>
         </div>
         
-        <!-- Контейнер вывода цены -->
+        <!-- Контейнер вывода цены с пояснением -->
         <div class="panel-price-box">
           <span class="price-label">Стоимость обучения:</span>
           <div id="panel-price" class="price-value">от 1 200 ₽ / занятие</div>
+          <span class="price-notice">Цена зависит от программы: школа, ОГЭ или ЕГЭ</span>
         </div>
 
         <button class="btn-panel-cta" onclick="enrollToCurrentSubject()">ЗАПИСАТЬСЯ К ПЕДАГОГУ →</button>
@@ -980,7 +989,6 @@
   let currentlySelectedSubjectName = "Математика";
 
   function showSubjectDetails(subjectKey, cardElement) {
-    // Убираем класс прыжка, если пользователь кликнул по карточке сам
     cardElement.classList.remove('js-hint-jump');
     
     document.querySelectorAll('.subject-showcase-card').forEach(card => card.classList.remove('active'));
@@ -1079,10 +1087,8 @@
     if (grid && firstCard) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // Когда блок карточек появляется на экране на 30%
           if (entry.isIntersecting) {
             firstCard.classList.add('js-hint-jump');
-            // Перестаем следить за скроллом, чтобы подсказка сработала 1 раз за визит
             observer.unobserve(grid);
           }
         });
