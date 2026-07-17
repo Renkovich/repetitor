@@ -109,7 +109,6 @@
     margin-bottom: 48px;
   }
   
-  /* Неоновые маркеры ОТ и ДО */
   .marker {
     background: var(--accent);
     color: var(--black);
@@ -156,7 +155,7 @@
     border-color: rgba(255,255,255,0.2);
   }
 
-  /* СТАТИСТИКА (Возвращено компактное плиточное оформление) */
+  /* СТАТИСТИКА (Компактная плитка) */
   .stats-block {
     background: var(--gray);
     border: 1px solid rgba(255,255,255,0.04);
@@ -186,7 +185,7 @@
     line-height: 1.5;
   }
 
-  /* НАШ ПОДХОД (Вариант Г - Интерактивные переключатели) */
+  /* НАШ ПОДХОД (Компактные вкладки) */
   .section-title {
     font-family: 'Unbounded', sans-serif;
     font-size: clamp(24px, 4vw, 40px);
@@ -230,9 +229,7 @@
     color: var(--accent);
     background: rgba(232,255,71,0.08);
   }
-  .approach-content {
-    min-height: 60px;
-  }
+  .approach-content { min-height: 60px; }
   .approach-text {
     display: none;
     font-size: 16px;
@@ -240,9 +237,7 @@
     line-height: 1.6;
     animation: fadeIn 0.3s ease forwards;
   }
-  .approach-text.active {
-    display: block;
-  }
+  .approach-text.active { display: block; }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(4px); }
@@ -299,9 +294,7 @@
     text-align: center;
     transition: all 0.2s;
   }
-  .subject-card:hover {
-    border-color: rgba(232,255,71,0.2);
-  }
+  .subject-card:hover { border-color: rgba(232,255,71,0.2); }
   .subject-card:hover .btn-card {
     background: var(--accent);
     color: var(--black);
@@ -313,7 +306,7 @@
     border-top: 1px solid rgba(255,255,255,0.03);
   }
   .form-container {
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
   }
   .form-box {
@@ -342,7 +335,7 @@
     gap: 16px;
   }
   
-  /* Мультивыбор предметов */
+  /* Обновленная компактная сетка для 10 предметов */
   .subject-tabs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -350,25 +343,25 @@
     margin-bottom: 8px;
   }
   .tab-btn {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: #aaa;
-    padding: 16px 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #999;
+    padding: 12px 8px;
     border-radius: 6px;
     font-family: 'Mulish', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
     text-align: center;
     user-select: none;
   }
   .tab-btn:hover {
-    border-color: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.15);
     color: var(--white);
   }
   .tab-btn.active {
-    background: rgba(232,255,71,0.1);
+    background: rgba(232,255,71,0.08);
     border-color: var(--accent);
     color: var(--accent);
   }
@@ -385,15 +378,9 @@
     width: 100%;
     transition: border-color 0.2s;
   }
-  input:focus {
-    border-color: var(--accent);
-  }
+  input:focus { border-color: var(--accent); }
 
-  /* Исправленное и выровненное поле выпадающего списка */
-  .select-wrapper {
-    position: relative;
-    width: 100%;
-  }
+  .select-wrapper { position: relative; width: 100%; }
   select {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.08);
@@ -410,9 +397,7 @@
     -moz-appearance: none;
     cursor: pointer;
   }
-  select:focus {
-    border-color: var(--accent);
-  }
+  select:focus { border-color: var(--accent); }
   .select-wrapper::after {
     content: "";
     position: absolute;
@@ -422,9 +407,6 @@
     border: 5px solid transparent;
     border-top-color: var(--muted);
     pointer-events: none;
-  }
-  select:focus + .select-wrapper::after {
-    border-top-color: var(--accent);
   }
 
   .btn-submit {
@@ -459,7 +441,9 @@
     
     .subject-card { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
     .btn-card { width: 100%; }
-    .subject-tabs { grid-template-columns: 1fr; gap: 6px; }
+    
+    /* 2 колонки для предметов на мобилке, чтобы пальцем было удобно тыкать */
+    .subject-tabs { grid-template-columns: repeat(2, 1fr); gap: 6px; }
     .form-box { padding: 24px; }
   }
 </style>
@@ -492,7 +476,7 @@
     <a href="#form" class="btn btn-secondary">Оставить заявку</a>
   </div>
 
-  <!-- БЛОК СТАТИСТИКИ (Вернули прежнее монолитное оформление плиткой) -->
+  <!-- БЛОК СТАТИСТИКИ (Плитка) -->
   <div class="stats-block">
     <div class="stats-grid">
       <div class="stat-item">
@@ -519,7 +503,7 @@
 <section id="subjects">
   <h2 class="section-title">Выбери предмет</h2>
   
-  <!-- ИНТЕРАКТИВНЫЙ БЛОК НАШ ПОДХОД (Вариант Г) -->
+  <!-- ИНТЕРАКТИВНЫЙ БЛОК НАШ ПОДХОД -->
   <div class="approach-container">
     <div class="approach-tabs">
       <button class="approach-tab-btn active" onclick="switchApproach(0, this)">Обучение</button>
@@ -535,9 +519,8 @@
     </div>
   </div>
 
-  <!-- ЧИСТЫЕ КАРТОЧКИ ПРЕДМЕТОВ -->
+  <!-- ТРИ СУЩЕСТВУЮЩИХ ПРЕДМЕТА -->
   <div class="subjects-list">
-    <!-- Математика -->
     <div class="subject-card">
       <div>
         <span class="subj-tag">5–11 КЛАСС</span>
@@ -547,7 +530,6 @@
       <a href="math.html" class="btn-card">Перейти на страницу →</a>
     </div>
 
-    <!-- История -->
     <div class="subject-card">
       <div>
         <span class="subj-tag">8–11 КЛАСС</span>
@@ -557,7 +539,6 @@
       <a href="history.html" class="btn-card">Перейти на страницу →</a>
     </div>
 
-    <!-- Обществознание -->
     <div class="subject-card">
       <div>
         <span class="subj-tag">8–11 КЛАСС</span>
@@ -577,14 +558,20 @@
       <p>Познакомимся, определим уровень знаний и составим персональную траекторию обучения.</p>
       
       <form action="https://formspree.io/f/mgobayyd" method="POST" onsubmit="return prepareSubmit()">
-        <!-- Скрытое поле для передачи выбранных предметов -->
         <input type="hidden" name="subject" id="selected-subject" value="Математика">
         
-        <!-- Кнопки-табы с поддержкой МУЛЬТИВЫБОРА -->
+        <!-- Полная сетка мультивыбора из 10 предметов -->
         <div class="subject-tabs">
           <div class="tab-btn active" data-value="Математика" onclick="toggleSubject(this)">Математика</div>
           <div class="tab-btn" data-value="История" onclick="toggleSubject(this)">История</div>
           <div class="tab-btn" data-value="Обществознание" onclick="toggleSubject(this)">Общество</div>
+          <div class="tab-btn" data-value="Русский язык" onclick="toggleSubject(this)">Русский яз.</div>
+          <div class="tab-btn" data-value="Английский язык" onclick="toggleSubject(this)">Английский</div>
+          <div class="tab-btn" data-value="Физика" onclick="toggleSubject(this)">Физика</div>
+          <div class="tab-btn" data-value="Химия" onclick="toggleSubject(this)">Химия</div>
+          <div class="tab-btn" data-value="Биология" onclick="toggleSubject(this)">Биология</div>
+          <div class="tab-btn" data-value="Информатика" onclick="toggleSubject(this)">Информатика</div>
+          <div class="tab-btn" data-value="Литература" onclick="toggleSubject(this)">Литература</div>
         </div>
         
         <input type="text" name="name" placeholder="Ваше имя" required>
@@ -606,43 +593,31 @@
   </div>
 </section>
 
-<!-- СКРИПТЫ ИНТЕРАКТИВА -->
 <script>
-  // Переключение вкладок подхода (Вариант Г)
   function switchApproach(index, element) {
     const tabs = document.querySelectorAll('.approach-tab-btn');
     const texts = document.querySelectorAll('.approach-text');
-    
     tabs.forEach(tab => tab.classList.remove('active'));
     texts.forEach(text => text.classList.remove('active'));
-    
     element.classList.add('active');
     texts[index].classList.add('active');
   }
 
-  // Логика мультивыбора предметов
   function toggleSubject(element) {
-    // Переключаем класс active (вкл/выкл)
     element.classList.toggle('active');
-    
-    // Проверяем, чтобы остался выбран хотя бы один предмет
     const activeTabs = document.querySelectorAll('.subject-tabs .tab-btn.active');
     if (activeTabs.length === 0) {
-      element.classList.add('active'); // Не даём выключить последний
+      element.classList.add('active');
     }
-    
     updateHiddenInput();
   }
 
   function updateHiddenInput() {
     const activeTabs = document.querySelectorAll('.subject-tabs .tab-btn.active');
     const selectedValues = [];
-    
     activeTabs.forEach(tab => {
       selectedValues.push(tab.getAttribute('data-value'));
     });
-    
-    // Записываем через запятую в скрытое поле формы
     document.getElementById('selected-subject').value = selectedValues.join(', ');
   }
 
