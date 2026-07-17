@@ -155,7 +155,7 @@
     border-color: rgba(255,255,255,0.2);
   }
 
-  /* СТАТИСТИКА (Компактная плитка) */
+  /* СТАТИСТИКА */
   .stats-block {
     background: var(--gray);
     border: 1px solid rgba(255,255,255,0.04);
@@ -164,8 +164,8 @@
   }
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
   }
   .stat-item {
     display: flex;
@@ -185,7 +185,7 @@
     line-height: 1.5;
   }
 
-  /* НАШ ПОДХОД (Компактные вкладки) */
+  /* НАШ ПОДХОД */
   .section-title {
     font-family: 'Unbounded', sans-serif;
     font-size: clamp(24px, 4vw, 40px);
@@ -244,58 +244,93 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* КАРТОЧКИ ПРЕДМЕТОВ */
-  .subjects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .subject-card {
+  /* ИНТЕРАКТИВНЫЙ БЛОК ПРЕДМЕТОВ (Избегаем каши) */
+  .subjects-showcase {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
     background: var(--card-bg);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
     padding: 40px;
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 40px;
-    align-items: center;
   }
-  .subj-tag {
+  
+  /* Списочное меню предметов слева */
+  .subjects-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    padding-right: 20px;
+  }
+  .subj-menu-btn {
+    background: transparent;
+    border: none;
+    color: #999;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .subj-menu-btn:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.02);
+  }
+  .subj-menu-btn.active {
+    color: var(--accent);
+    background: rgba(232,255,71,0.08);
+  }
+
+  /* Контентная область описания справа */
+  .subject-pane {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 0.3s ease forwards;
+  }
+  .subject-pane.active {
+    display: flex;
+  }
+  .pane-tag {
     font-size: 12px;
     font-weight: 700;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 16px;
-    display: block;
+    margin-bottom: 12px;
   }
-  .subject-card h3 {
+  .subject-pane h3 {
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(24px, 3vw, 36px);
+    font-size: 36px;
     font-weight: 900;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
-  .subject-card p {
+  .subject-pane p {
     color: #b3b3b3;
-    font-size: 16px;
-    line-height: 1.6;
-    max-width: 650px;
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 600px;
   }
   .btn-card {
     background: transparent;
     border: 1px solid var(--accent);
     color: var(--accent);
-    padding: 18px;
+    padding: 20px 32px;
     font-family: 'Unbounded', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     text-decoration: none;
     border-radius: 6px;
-    text-align: center;
+    align-self: flex-start;
     transition: all 0.2s;
   }
-  .subject-card:hover { border-color: rgba(232,255,71,0.2); }
-  .subject-card:hover .btn-card {
+  .btn-card:hover {
     background: var(--accent);
     color: var(--black);
   }
@@ -335,7 +370,6 @@
     gap: 16px;
   }
   
-  /* Обновленная компактная сетка для 10 предметов */
   .subject-tabs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -393,8 +427,6 @@
     width: 100%;
     transition: border-color 0.2s;
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     cursor: pointer;
   }
   select:focus { border-color: var(--accent); }
@@ -433,16 +465,31 @@
     .hero-buttons { flex-direction: column; }
     
     .stats-block { padding: 24px; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     
     .approach-container { padding: 20px; }
     .approach-tabs { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .approach-tab-btn { font-size: 11px; padding: 10px 6px; }
     
-    .subject-card { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
-    .btn-card { width: 100%; }
+    /* Трансформация шоукейса предметов под мобильные устройства */
+    .subjects-showcase { grid-template-columns: 1fr; gap: 24px; padding: 20px; }
+    .subjects-menu { 
+      flex-direction: row; 
+      overflow-x: auto; 
+      border-right: none; 
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-right: 0;
+      padding-bottom: 12px;
+      /* Плавный скролл пальцем на мобилках */
+      scrollbar-width: none; 
+      -webkit-overflow-scrolling: touch;
+    }
+    .subjects-menu::-webkit-scrollbar { display: none; }
+    .subj-menu-btn { white-space: nowrap; font-size: 13px; padding: 10px 14px; width: auto; }
     
-    /* 2 колонки для предметов на мобилке, чтобы пальцем было удобно тыкать */
+    .subject-pane h3 { font-size: 24px; margin-bottom: 12px; }
+    .subject-pane p { font-size: 15px; margin-bottom: 24px; }
+    .btn-card { width: 100%; text-align: center; }
+    
     .subject-tabs { grid-template-columns: repeat(2, 1fr); gap: 6px; }
     .form-box { padding: 24px; }
   }
@@ -472,11 +519,11 @@
   </p>
   
   <div class="hero-buttons">
-    <a href="#subjects" class="btn btn-primary">ВЫБРАТЬ НАПРАВЛЕНИЕ</a>
+    <a href="#subjects" class="btn btn-primary">ВЫБРАТЬ ПРЕДМЕТ</a>
     <a href="#form" class="btn btn-secondary">Оставить заявку</a>
   </div>
 
-  <!-- БЛОК СТАТИСТИКИ (Плитка) -->
+  <!-- БЛОК СТАТИСТИКИ -->
   <div class="stats-block">
     <div class="stats-grid">
       <div class="stat-item">
@@ -488,8 +535,8 @@
         <div class="stat-text">занятия в неделю по 60 минут</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">3</div>
-        <div class="stat-text">ключевых направления обучения</div>
+        <div class="stat-num">10+</div>
+        <div class="stat-text">предметов школьной программы</div>
       </div>
       <div class="stat-item">
         <div class="stat-num">0 ₽</div>
@@ -503,7 +550,7 @@
 <section id="subjects">
   <h2 class="section-title">Выбери предмет</h2>
   
-  <!-- ИНТЕРАКТИВНЫЙ БЛОК НАШ ПОДХОД -->
+  <!-- НАШ ПОДХОД -->
   <div class="approach-container">
     <div class="approach-tabs">
       <button class="approach-tab-btn active" onclick="switchApproach(0, this)">Обучение</button>
@@ -519,33 +566,96 @@
     </div>
   </div>
 
-  <!-- ТРИ СУЩЕСТВУЮЩИХ ПРЕДМЕТА -->
-  <div class="subjects-list">
-    <div class="subject-card">
-      <div>
-        <span class="subj-tag">5–11 КЛАСС</span>
+  <!-- ИНТЕРАКТИВНЫЙ ШОУКЕЙС ВСЕХ 10 ПРЕДМЕТОВ -->
+  <div class="subjects-showcase">
+    
+    <!-- Меню выбора предметов (на мобилках скроллится вбок) -->
+    <div class="subjects-menu">
+      <button class="subj-menu-btn active" onclick="switchSubject(0, this)">Математика</button>
+      <button class="subj-menu-btn" onclick="switchSubject(1, this)">История</button>
+      <button class="subj-menu-btn" onclick="switchSubject(2, this)">Обществознание</button>
+      <button class="subj-menu-btn" onclick="switchSubject(3, this)">Русский язык</button>
+      <button class="subj-menu-btn" onclick="switchSubject(4, this)">Английский язык</button>
+      <button class="subj-menu-btn" onclick="switchSubject(5, this)">Физика</button>
+      <button class="subj-menu-btn" onclick="switchSubject(6, this)">Химия</button>
+      <button class="subj-menu-btn" onclick="switchSubject(7, this)">Биология</button>
+      <button class="subj-menu-btn" onclick="switchSubject(8, this)">Информатика</button>
+      <button class="subj-menu-btn" onclick="switchSubject(9, this)">Литература</button>
+    </div>
+
+    <!-- Область описаний (меняется на лету) -->
+    <div class="subjects-panes">
+      
+      <div class="subject-pane active">
+        <span class="pane-tag">5–11 КЛАСС</span>
         <h3>Математика</h3>
         <p>Школьная программа, ОГЭ и ЕГЭ. Объясняем сложные математические абстракции через простую логику. Результат и понимание видны уже через месяц регулярных занятий.</p>
+        <a href="math.html" class="btn-card">Перейти на страницу →</a>
       </div>
-      <a href="math.html" class="btn-card">Перейти на страницу →</a>
-    </div>
 
-    <div class="subject-card">
-      <div>
-        <span class="subj-tag">8–11 КЛАСС</span>
+      <div class="subject-pane">
+        <span class="pane-tag">8–11 КЛАСС</span>
         <h3>История</h3>
         <p>Подготовка к ОГЭ и ЕГЭ по истории. Превращаем хаос из дат и правителей в понятную хронологическую цепочку. Живой разбор реальных вариантов вместо скучного пересказа учебников.</p>
+        <a href="history.html" class="btn-card">Перейти на страницу →</a>
       </div>
-      <a href="history.html" class="btn-card">Перейти на страницу →</a>
-    </div>
 
-    <div class="subject-card">
-      <div>
-        <span class="subj-tag">8–11 КЛАСС</span>
+      <div class="subject-pane">
+        <span class="pane-tag">8–11 КЛАСС</span>
         <h3>Обществознание</h3>
         <p>Подготовка к ОГЭ и ЕГЭ. Системный разбор всех блоков кодификатора на жизненных примерах и кейсах. Учим правильно аргументировать позицию для максимального балла во второй части.</p>
+        <a href="social.html" class="btn-card">Перейти на страницу →</a>
       </div>
-      <a href="social.html" class="btn-card">Перейти на страницу →</a>
+
+      <div class="subject-pane">
+        <span class="pane-tag">5–11 КЛАСС</span>
+        <h3>Русский язык</h3>
+        <p>Изучение правил без скучной зубрёжки. Разбираем алгоритмы выполнения тестовой части ЕГЭ/ОГЭ и учим писать идеальные сочинения по критериям ФИПИ.</p>
+        <a href="russian.html" class="btn-card">Перейти на страницу →</a>
+      </div>
+
+      <div class="subject-pane">
+        <span class="pane-tag">5–11 КЛАСС</span>
+        <h3>Английский язык</h3>
+        <p>Преодолеваем языковой барьер, детально разбираем грамматику и готовим к аудированию, чтению и устной части экзаменов на максимальные баллы.</p>
+        <a href="english.html" class="btn-card">Перейти на страницу →</a>
+      </div>
+
+      <div class="subject-pane">
+        <span class="pane-tag">7–11 КЛАСС</span>
+        <h3>Физика</h3>
+        <p>Показываем законы физики в действии на примерах из реальной жизни. Помогаем понять суть явлений и легко справляться со сложными задачами из второй части ОГЭ/ЕГЭ.</p>
+        <a href="physics.html" class="btn-card">Перейти на страницу →</a>
+      </div>
+
+      <div class="subject-pane">
+        <span class="pane-tag">8–11 КЛАСС</span>
+        <h3>Химия</h3>
+        <p>Укрощаем периодическую таблицу и химические реакции. Понятное объяснение неорганической и органической химии с нуля для отличных оценок и сдачи экзаменов.</p>
+        <a href="chemistry.html" class="btn-card">Перейти на страницу →</a>
+      </div>
+
+      <div class="subject-pane">
+        <span class="pane-tag">5–11 КЛАСС</span>
+        <h3>Биология</h3>
+        <p>Структурированный разбор всех разделов: от ботаники и зоологии до анатомии и генетики. Помогаем запомнить огромные объёмы информации через удобные схемы.</p>
+        <a href="biology.html" class="btn-card">Перейти на страницу →</a>
+      </div>
+
+      <div class="subject-pane">
+        <span class="pane-tag">7–11 КЛАСС</span>
+        <h3>Информатика</h3>
+        <p>Обучение программированию и логике. Разбираем эффективные алгоритмы для успешного решения экзаменационных задач на компьютерах.</p>
+        <a href="informatics.html" class="btn-card">Перейти на страницу →</a>
+      </div>
+
+      <div class="subject-pane">
+        <span class="pane-tag">5–11 КЛАСС</span>
+        <h3>Литература</h3>
+        <p>Анализ классических произведений, разбор тем лирики и обучение правильной структуре аргументации для написания развёрнутых сочинений на ОГЭ и ЕГЭ.</p>
+        <a href="literature.html" class="btn-card">Перейти на страницу →</a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -560,7 +670,6 @@
       <form action="https://formspree.io/f/mgobayyd" method="POST" onsubmit="return prepareSubmit()">
         <input type="hidden" name="subject" id="selected-subject" value="Математика">
         
-        <!-- Полная сетка мультивыбора из 10 предметов -->
         <div class="subject-tabs">
           <div class="tab-btn active" data-value="Математика" onclick="toggleSubject(this)">Математика</div>
           <div class="tab-btn" data-value="История" onclick="toggleSubject(this)">История</div>
@@ -601,6 +710,17 @@
     texts.forEach(text => text.classList.remove('active'));
     element.classList.add('active');
     texts[index].classList.add('active');
+  }
+
+  /* Переключение табов предметов */
+  function switchSubject(index, element) {
+    const buttons = document.querySelectorAll('.subj-menu-btn');
+    const panes = document.querySelectorAll('.subject-pane');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    panes.forEach(pane => pane.classList.remove('active'));
+    
+    element.classList.add('active');
+    panes[index].classList.add('active');
   }
 
   function toggleSubject(element) {
