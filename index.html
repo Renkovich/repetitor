@@ -286,22 +286,23 @@
     .subjects-showcase-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 24px;
     }
     
     .subject-showcase-card {
       background: var(--card-bg);
       border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 10px;
-      padding: 20px;
+      border-radius: 12px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 120px;
+      min-height: 130px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       user-select: none;
+      position: relative;
     }
     
     .subj-card-tag {
@@ -316,27 +317,24 @@
     
     .subject-showcase-card h3 {
       font-family: 'Unbounded', sans-serif;
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--white);
       line-height: 1.3;
-    }
-    
-    .subj-card-arrow {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent);
-      margin-top: 12px;
+      margin-top: 8px;
     }
     
     .subject-showcase-card:hover {
-      border-color: rgba(232,255,71,0.4);
-      background: rgba(232,255,71,0.01);
+      border-color: var(--accent);
+      background: rgba(232,255,71,0.02);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
 
     .subject-showcase-card.active {
       border-color: var(--accent);
       background: rgba(232,255,71,0.05);
+      box-shadow: 0 0 20px rgba(232,255,71,0.1);
     }
 
     /* ИНТЕРАКТИВНАЯ ПАНЕЛЬ С ПРЕПОДАВАТЕЛЕМ */
@@ -345,7 +343,7 @@
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 16px;
       padding: 40px;
-      margin-top: 24px;
+      margin-top: 32px;
       display: none;
       animation: fadeIn 0.4s ease forwards;
     }
@@ -356,7 +354,7 @@
       gap: 40px;
     }
 
-    /* Левая колонка: Фото и Кнопка */
+    /* Левая колонка */
     .teacher-profile {
       display: flex;
       flex-direction: column;
@@ -374,7 +372,6 @@
       align-items: center;
       justify-content: center;
     }
-    /* Графическая заглушка, пока нет фотки */
     .avatar-placeholder {
       font-family: 'Unbounded', sans-serif;
       font-size: 48px;
@@ -386,7 +383,7 @@
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       object-fit: cover;
-      display: none; /* Проявится, если прописать src через JS */
+      display: none;
     }
     .teacher-badge {
       position: absolute;
@@ -400,7 +397,7 @@
       border-radius: 4px;
     }
 
-    /* Правая колонка: Инфо и Программа */
+    /* Правая колонка */
     .panel-info {
       display: flex;
       flex-direction: column;
@@ -607,6 +604,8 @@
       .approach-tabs { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       
       .subjects-showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .subject-showcase-card { padding: 16px; min-height: 110px; }
+      .subject-showcase-card h3 { font-size: 16px; }
       
       .subject-details-panel { padding: 24px; }
       .panel-layout { grid-template-columns: 1fr; gap: 24px; }
@@ -705,51 +704,41 @@
     </div>
   </div>
 
-  <!-- СЕТКА КАРТОЧЕК ПРЕДМЕТОВ -->
+  <!-- СЕТКА КАРТОЧЕК ПРЕДМЕТОВ (БЕЗ ТЕКСТА "ПОДРОБНЕЕ") -->
   <div class="subjects-showcase-grid">
     <div class="subject-showcase-card" onclick="showSubjectDetails('math', this)">
       <div><span class="subj-card-tag">5–11 класс</span><h3>Математика</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('history', this)">
       <div><span class="subj-card-tag">8–11 класс</span><h3>История</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('social', this)">
       <div><span class="subj-card-tag">8–11 класс</span><h3>Обществознание</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('russian', this)">
       <div><span class="subj-card-tag">5–11 класс</span><h3>Русский язык</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('english', this)">
       <div><span class="subj-card-tag">5–11 класс</span><h3>Английский язык</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('physics', this)">
       <div><span class="subj-card-tag">7–11 класс</span><h3>Физика</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('chemistry', this)">
       <div><span class="subj-card-tag">8–11 класс</span><h3>Химия</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('biology', this)">
       <div><span class="subj-card-tag">5–11 класс</span><h3>Биология</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('informatics', this)">
       <div><span class="subj-card-tag">7–11 класс</span><h3>Информатика</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
     <div class="subject-showcase-card" onclick="showSubjectDetails('literature', this)">
       <div><span class="subj-card-tag">5–11 класс</span><h3>Литература</h3></div>
-      <div class="subj-card-arrow">Подробнее ↓</div>
     </div>
   </div>
 
-  <!-- ОБНОВЛЕННЫЙ ИНТЕРАКТИВНЫЙ ВИДЖЕТ С ПРЕПОДАВАТЕЛЕМ -->
+  <!-- ИНТЕРАКТИВНЫЙ ВИДЖЕТ С ПРЕПОДАВАТЕЛЕМ -->
   <div id="subject-details" class="subject-details-panel">
     <div class="panel-layout">
       
@@ -757,7 +746,6 @@
       <div class="teacher-profile">
         <div class="teacher-avatar-box">
           <div id="avatar-letters" class="avatar-placeholder">МТ</div>
-          <!-- Когда будет фото, просто пропиши путь в src через JS или в данные, сейчас стоит заглушка -->
           <img id="teacher-img" class="teacher-avatar-img" src="" alt="Преподаватель">
           <span id="teacher-experience" class="teacher-badge">опыт 5 лет</span>
         </div>
@@ -834,14 +822,13 @@
 </section>
 
 <script>
-  // Расширенные данные: теперь с преподавателями
   const subjectData = {
     math: {
       name: "Математика",
       teacher: "Преподаватель математики • Эксперт ОГЭ/ЕГЭ",
       exp: "опыт 5+ лет",
       letters: "МТ",
-      img: "", // Сюда можно вставить ссылку на фото, например: "img/math-teacher.jpg"
+      img: "", 
       f1: "Разбираем сложные абстракции на визуальных моделях. Избавляем от страха перед геометрией, тригонометрией и текстовыми задачами.",
       f2: "Системный разбор структуры экзаменов. Учим оформлять вторую часть по строгим критериям ФИПИ, чтобы не потерять ни одного балла.",
       f3: "Уверенность у доски, ликвидация хронических пробелов в вычислениях и готовность к любым диагностическим работам."
@@ -908,7 +895,7 @@
     },
     biology: {
       name: "Биология",
-      teacher: "Преподаватель биологии • Академический биолог",
+      teacher: "Преподаватель biology • Академический биолог",
       exp: "опыт 5 лет",
       letters: "БИ",
       img: "",
@@ -949,7 +936,6 @@
 
     currentlySelectedSubjectName = data.name;
 
-    // Текстовые данные
     document.getElementById('panel-subject-name').innerText = data.name;
     document.getElementById('panel-teacher-name').innerText = data.teacher;
     document.getElementById('teacher-experience').innerText = data.exp;
@@ -958,7 +944,6 @@
     document.getElementById('panel-feature-2').innerText = data.f2;
     document.getElementById('panel-feature-3').innerText = data.f3;
 
-    // Работа с картинкой преподавателя
     const imgElement = document.getElementById('teacher-img');
     const lettersElement = document.getElementById('avatar-letters');
     
