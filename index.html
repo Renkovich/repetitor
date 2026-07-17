@@ -588,6 +588,18 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* АНИМАЦИЯ ПОДСКАЗКИ ДЛЯ КАРТОЧКИ */
+    @keyframes hintJump {
+      0% { transform: translateY(0); border-color: rgba(255,255,255,0.05); }
+      30% { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); }
+      60% { transform: translateY(-10px); border-color: var(--accent); }
+      100% { transform: translateY(0); border-color: rgba(255,255,255,0.05); }
+    }
+
+    .js-hint-jump {
+      animation: hintJump 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     /* АДАПТИВНОСТЬ */
     @media (max-width: 1100px) {
       .subjects-showcase-grid { grid-template-columns: repeat(4, 1fr); }
@@ -699,12 +711,12 @@
     <div class="approach-content">
       <div class="approach-text active">Подтягиваем успеваемость по школьной программе, помогаем разобраться со сложной домашкой и точечно готовим к ОГЭ/ЕГЭ по актуальным базам ФИПИ.</div>
       <div class="approach-text">Учим видеть причинно-следственные связи и логику формул, а не заучивать сухие тексты. Никакой зубрёжки шаблонов.</div>
-      <div class="approach-text">Строим гибкий план обучения под текущий уровень знаний, скорость усвоения материала и индивидуальную цель каждого ученика.</div>
+      <div class="approach-text">Строим гибкий план обучения под текущий уровень знаний, скорость усвоения материала и individualную цель каждого ученика.</div>
       <div class="approach-text">Регулярные срезы знаний на платформе и развёрнутая обратная связь для родителей, чтобы наглядно видеть реальный прогресс.</div>
     </div>
   </div>
 
-  <!-- СЕТКА КАРТОЧЕК ПРЕДМЕТОВ (БЕЗ ТЕКСТА "ПОДРОБНЕЕ") -->
+  <!-- СЕТКА КАРТОЧЕК ПРЕДМЕТОВ -->
   <div class="subjects-showcase-grid">
     <div class="subject-showcase-card" onclick="showSubjectDetails('math', this)">
       <div><span class="subj-card-tag">5–11 класс</span><h3>Математика</h3></div>
@@ -900,7 +912,7 @@
       letters: "БИ",
       img: "",
       f1: "Изучаем анатомию, ботанику, зоологию и общую биологию через наглядные атласы и схемы. Логика эволюции вместо зубрёжки.",
-      f2: "Проработка коварных вопросов развёрнутой части, где требуется знание биологического контекста и точные формулировки.",
+      f2: "Проработка коварных вопросов развёрнутой части, где требуется знание biological контекста и точные формулировки.",
       f3: "Системные знания о живой природе, понимание взаимосвязей в экосистемах и успешное прохождение тестов."
     },
     informatics: {
@@ -910,7 +922,7 @@
       letters: "ИТ",
       img: "",
       f1: "Учим программированию на Python с нуля. Показываем, как решать большинство задач экзамена эффективным кодом, а не вручную.",
-      f2: "Практическая работа с электронными таблицами и базами данных. Настройка алгоритмов для автоматизации вычислений.",
+      f2: "Практическая работа с электронными таблицами и базами данных. Настройка алгоритмов для автоматизации вычислещих.",
       f3: "Развитое алгоритмическое мышление и умение использовать компьютер как мощный инструмент для решения экзаменационных задач."
     },
     literature: {
@@ -928,6 +940,9 @@
   let currentlySelectedSubjectName = "Математика";
 
   function showSubjectDetails(subjectKey, cardElement) {
+    // Если на карточке была анимация подсказки — отключаем её
+    cardElement.classList.remove('js-hint-jump');
+    
     document.querySelectorAll('.subject-showcase-card').forEach(card => card.classList.remove('active'));
     cardElement.classList.add('active');
     
@@ -1012,6 +1027,28 @@
     updateHiddenInput();
     return true;
   }
+
+  // СКРИПТ АНИМАЦИИ ПОДСКАЗКИ ПРИ СКРОЛЛЕ
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.querySelector('.subjects-showcase-grid');
+    const firstCard = document.querySelector('.subject-showcase-card'); // Самая первая карточка (Математика)
+
+    if (grid && firstCard) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // Когда сетка заходит в зону видимости экрана хотя бы на 30%
+          if (entry.isIntersecting) {
+            // Запускаем подскок
+            firstCard.classList.add('js-hint-jump');
+            // Перестаем следить за скроллом, чтобы это сработало ровно один раз
+            observer.unobserve(grid);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(grid);
+    }
+  });
 </script>
 
 </body>
