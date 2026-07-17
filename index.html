@@ -188,7 +188,7 @@
       line-height: 1.5;
     }
 
-    /* СТИЛЬНАЯ БЕГУЩАЯ СТРОКА */
+    /* БЕГУЩАЯ СТРОКА */
     .marquee-wrapper {
       background: var(--accent);
       color: var(--black);
@@ -241,7 +241,7 @@
       border: 1px dashed rgba(255,255,255,0.1);
       border-radius: 16px;
       padding: 32px;
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
     .approach-tabs {
       display: grid;
@@ -282,16 +282,12 @@
     }
     .approach-text.active { display: block; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     /* СЕТКА ПРЕДМЕТОВ */
     .subjects-showcase-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
+      margin-bottom: 32px;
     }
     
     .subject-showcase-card {
@@ -302,10 +298,10 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 150px;
+      min-height: 140px;
       cursor: pointer;
-      text-decoration: none;
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
     }
     
     .subj-card-tag {
@@ -324,7 +320,6 @@
       font-weight: 700;
       color: var(--white);
       line-height: 1.3;
-      margin-bottom: 16px;
     }
     
     .subj-card-arrow {
@@ -336,18 +331,87 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      transition: transform 0.2s;
+      margin-top: 16px;
     }
     
     .subject-showcase-card:hover {
-      border-color: var(--accent);
-      background: rgba(232,255,71,0.02);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border-color: rgba(232,255,71,0.5);
+      background: rgba(232,255,71,0.01);
+      transform: translateY(-2px);
     }
-    
-    .subject-showcase-card:hover .subj-card-arrow {
-      transform: translateX(4px);
+
+    .subject-showcase-card.active {
+      border-color: var(--accent);
+      background: rgba(232,255,71,0.04);
+    }
+
+    /* ИНТЕРАКТИВНАЯ ПАНЕЛЬ ИНФОРМАЦИИ О ПРЕДМЕТЕ */
+    .subject-details-panel {
+      background: var(--gray);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 24px;
+      display: none; /* Проявляется через JS */
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+    .panel-title h4 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--white);
+    }
+    .panel-title p {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .panel-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .feature-item h5 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .feature-item p {
+      font-size: 14px;
+      color: #b3b3b3;
+      line-height: 1.5;
+    }
+    .panel-action {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .btn-panel-cta {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 16px 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-panel-cta:hover {
+      background: var(--accent);
+      color: var(--black);
     }
 
     /* ФОРМА ЗАЯВКИ */
@@ -474,9 +538,15 @@
       box-shadow: 0 8px 24px rgba(232,255,71,0.2);
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* АДАПТИВНОСТЬ */
     @media (max-width: 1024px) {
       .subjects-showcase-grid { grid-template-columns: repeat(3, 1fr); }
+      .panel-features { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 900px) {
@@ -486,14 +556,15 @@
       .stats-block { padding: 24px; margin-bottom: 32px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       
-      .marquee-wrapper { padding: 14px 0; }
-      
       .approach-container { padding: 20px; }
       .approach-tabs { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       
       .subjects-showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .subject-showcase-card { padding: 16px; min-height: 120px; }
-      .subject-showcase-card h3 { font-size: 15px; margin-bottom: 10px; }
+      .subject-showcase-card { padding: 16px; min-height: 110px; }
+      .subject-showcase-card h3 { font-size: 15px; }
+      
+      .subject-details-panel { padding: 24px; }
+      .panel-features { grid-template-columns: 1fr; gap: 16px; }
       
       .subject-tabs { grid-template-columns: repeat(2, 1fr); gap: 6px; }
       .form-box { padding: 24px; }
@@ -558,7 +629,6 @@
       <div class="marquee-item">ПОВЫШЕНИЕ УСПЕВАЕМОСТИ</div>
       <div class="marquee-item">ВЫЯВЛЕНИЕ ПРОБЕЛОВ</div>
       <div class="marquee-item">ИНДИВИДУАЛЬНЫЙ ПЛАН</div>
-      <!-- Дублируем контент для бесшовного зацикливания -->
       <div class="marquee-item">ПОДГОТОВКА К ЕГЭ</div>
       <div class="marquee-item">ПОДГОТОВКА К ОГЭ</div>
       <div class="marquee-item">ПОВЫШЕНИЕ УСПЕВАЕМОСТИ</div>
@@ -588,89 +658,75 @@
     </div>
   </div>
 
-  <!-- СЕТКА КАРТОЧЕК ДЛЯ 10 ПРЕДМЕТОВ -->
+  <!-- СЕТКА КАРТОЧЕК ПРЕДМЕТОВ -->
   <div class="subjects-showcase-grid">
-    
-    <a href="math.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">5–11 класс</span>
-        <h3>Математика</h3>
-      </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('math', this)">
+      <div><span class="subj-card-tag">5–11 класс</span><h3>Математика</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('history', this)">
+      <div><span class="subj-card-tag">8–11 класс</span><h3>История</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('social', this)">
+      <div><span class="subj-card-tag">8–11 класс</span><h3>Обществознание</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('russian', this)">
+      <div><span class="subj-card-tag">5–11 класс</span><h3>Русский язык</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('english', this)">
+      <div><span class="subj-card-tag">5–11 класс</span><h3>Английский язык</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('physics', this)">
+      <div><span class="subj-card-tag">7–11 класс</span><h3>Физика</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('chemistry', this)">
+      <div><span class="subj-card-tag">8–11 класс</span><h3>Химия</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('biology', this)">
+      <div><span class="subj-card-tag">5–11 класс</span><h3>Биология</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('informatics', this)">
+      <div><span class="subj-card-tag">7–11 класс</span><h3>Информатика</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+    <div class="subject-showcase-card" onclick="showSubjectDetails('literature', this)">
+      <div><span class="subj-card-tag">5–11 класс</span><h3>Литература</h3></div>
+      <div class="subj-card-arrow">Смотреть программу ↓</div>
+    </div>
+  </div>
 
-    <a href="history.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">8–11 класс</span>
-        <h3>История</h3>
+  <!-- ДИНАМИЧЕСКИЙ ВИДЖЕТ ДЕТАЛЕЙ ПРЕДМЕТА -->
+  <div id="subject-details" class="subject-details-panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <h4 id="panel-subject-name">Математика</h4>
+        <p id="panel-subject-tag">ЕГЭ / ОГЭ / Школьная программа</p>
       </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="social.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">8–11 класс</span>
-        <h3>Обществознание</h3>
+    </div>
+    <div class="panel-features">
+      <div class="feature-item">
+        <h5>Как проходят уроки</h5>
+        <p id="panel-feature-1">Разбираем теорию на понятных жизненных примерах, уничтожаем страх перед формулами и геометрией. Учим логике решений.</p>
       </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="russian.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">5–11 класс</span>
-        <h3>Русский язык</h3>
+      <div class="feature-item">
+        <h5>Главный фокус</h5>
+        <p id="panel-feature-2">Вместо бездумного зазубривания алгоритмов, мы учим анализировать условия задач. Как итог — лёгкое решение даже нестандартных заданий.</p>
       </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="english.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">5–11 класс</span>
-        <h3>Английский язык</h3>
+      <div class="feature-item">
+        <h5>Результат</h5>
+        <p id="panel-feature-3">Ученик перестаёт бояться контрольных и самостоятельных работ, закрывает старые пробелы и выходит на стабильный, прогнозируемый результат.</p>
       </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="physics.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">7–11 класс</span>
-        <h3>Физика</h3>
-      </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="chemistry.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">8–11 класс</span>
-        <h3>Химия</h3>
-      </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="biology.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">5–11 класс</span>
-        <h3>Биология</h3>
-      </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="informatics.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">7–11 класс</span>
-        <h3>Информатика</h3>
-      </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
-    <a href="literature.html" class="subject-showcase-card">
-      <div>
-        <span class="subj-card-tag">5–11 класс</span>
-        <h3>Литература</h3>
-      </div>
-      <div class="subj-card-arrow">Подробнее →</div>
-    </a>
-
+    </div>
+    <div class="panel-action">
+      <button class="btn-panel-cta" onclick="enrollToCurrentSubject()">ЗАПИСАТЬСЯ НА ПРОБНЫЙ УРОК ПО ЭТОМУ ПРЕДМЕТУ →</button>
+    </div>
   </div>
 </section>
 
@@ -717,6 +773,133 @@
 </section>
 
 <script>
+  // Данные для интерактивного переключения предметов
+  const subjectData = {
+    math: {
+      name: "Математика",
+      tag: "5–11 классы • Подготовка к ЕГЭ (профиль/база), ОГЭ, ВПР и повышение успеваемости",
+      f1: "Разбираем сложные математические абстракции на визуальных моделях. Избавляем от страха перед геометрией, тригонометрией и текстовыми задачами.",
+      f2: "Системный разбор структуры экзаменов. Учим оформлять вторую часть по строгим критериям ФИПИ, чтобы не потерять ни одного балла.",
+      f3: "Уверенность у доски, ликвидация хронических пробелов в вычислениях и готовность к любым диагностическим работам."
+    },
+    history: {
+      name: "История",
+      tag: "8–11 классы • Подготовка к ЕГЭ, ОГЭ и углублённое изучение",
+      f1: "Превращаем хаотичный набор дат и правителей в стройную логическую цепочку причин и следствий. Уделяем особое внимание истории культуры и картам.",
+      f2: "Отработка сложных заданий на аргументацию и анализ исторических источников. Учим формулировать тезисы без «воды».",
+      f3: "Глубокое понимание исторических процессов, лёгкое запоминание дат через ассоциативные механики."
+    },
+    social: {
+      name: "Обществознание",
+      tag: "8–11 классы • Подготовка к ЕГЭ и ОГЭ",
+      f1: "Изучаем право, экономику, политику и социологию на реальных кейсах из современных СМИ и законов РФ. Никакой оторванной от жизни теории.",
+      f2: "Ювелирный разбор второй части: учим давать точные развёрнутые примеры и иллюстрировать теоретические положения.",
+      f3: "Способность ориентироваться в социальных процессах и корректно использовать терминологию для максимального балла."
+    },
+    russian: {
+      name: "Русский язык",
+      tag: "5–11 классы • Подготовка к ЕГЭ, ОГЭ, итоговому сочинению",
+      f1: "Объясняем орфографию и пунктуацию через внутреннюю логику языка, а не бездумное зазубривание сотен исключений.",
+      f2: "Пошаговый алгоритм написания сочинения: от точного выявления проблемы текста до выстраивания безупречной смысловой связи.",
+      f3: "Грамотность в повседневной жизни и автоматическое применение правил на экзаменах без стресса."
+    },
+    english: {
+      name: "Английский язык",
+      tag: "5–11 классы • ОГЭ, ЕГЭ и снятие языкового барьера",
+      f1: "Комплексное развитие всех навыков: аудирование, чтение, грамматика и лексика. Разрушаем барьер в говорении с помощью интерактивных практик.",
+      f2: "Подготовка к устной части экзамена по строгим шаблонам и таймингам. Проработка типичных ловушек в секции грамматики.",
+      f3: "Свободное выражение мыслей на английском и чёткое понимание структуры экзаменационного формата."
+    },
+    physics: {
+      name: "Физика",
+      tag: "7–11 классы • Подготовка к ЕГЭ, ОГЭ и школьная программа",
+      f1: "Связываем формулы с реальными физическими явлениями вокруг нас. Объясняем механику, термодинамику и электричество «на пальцах».",
+      f2: "Особый акцент на математический аппарат физики (вывод формул, работа с векторами и графиками) и разбор качественных задач.",
+      f3: "Ученик начинает видеть за формулами живую природу, развивает инженерное мышление и щёлкает задачи любой сложности."
+    },
+    chemistry: {
+      name: "Химия",
+      tag: "8–11 классы • Подготовка к ЕГЭ, ОГЭ",
+      f1: "Проводники в мир неорганической и органической химии. Объясняем логику протекания реакций, а не заставляем зубрить таблицы наизусть.",
+      f2: "Разбор алгоритмов решения расчетных задач повышенной сложности (знаменитая 34-я задача в ЕГЭ) и мысленный эксперимент.",
+      f3: "Чёткое понимание химических процессов, уверенное составление уравнений реакций и высокие баллы."
+    },
+    biology: {
+      name: "Биология",
+      tag: "5–11 классы • Подготовка к ЕГЭ и ОГЭ",
+      f1: "Изучаем анатомию, ботанику, зоологию и общую биологию через наглядные 3D-атласы и современные схемы. Логика эволюции вместо зубрёжки.",
+      f2: "Проработка коварных вопросов развёрнутой части, где требуется знание биологического контекста и точные медицинские формулировки.",
+      f3: "Системные знания о живой природе, понимание взаимосвязей в экосистемах и успешное прохождение тестов."
+    },
+    informatics: {
+      name: "Информатика",
+      tag: "7–11 классы • Подготовка к ОГЭ и ЕГЭ (КЕГЭ)",
+      f1: "Учим программированию на Python с нуля. Показываем, как решать большинство задач экзамена эффективным кодом, а не вручную.",
+      f2: "Практическая работа с электронными таблицами и базами данных. Настройка алгоритмов для автоматизации вычислений.",
+      f3: "Развитое алгоритмическое мышление и умение использовать компьютер как мощный инструмент для решения экзаменационных задач."
+    },
+    literature: {
+      name: "Литература",
+      tag: "5–11 классы • ОГЭ, ЕГЭ и школьная программа",
+      f1: "Глубокий анализ художественных текстов, лирики и драматургии. Изучаем историко-литературный контекст и позицию авторов.",
+      f2: "Написание литературных сочинений по строгим критериям: учим правильно привлекать текст, использовать термины и избегать речевых ошибок.",
+      f3: "Навык аргументированного анализа текстов, развитая речь и успешное написание всех развёрнутых работ."
+    }
+  };
+
+  let currentlySelectedSubjectName = "Математика";
+
+  function showSubjectDetails(subjectKey, cardElement) {
+    // Убираем класс active у всех карточек
+    document.querySelectorAll('.subject-showcase-card').forEach(card => card.classList.remove('active'));
+    
+    // Добавляем active текущей карточке
+    cardElement.classList.add('active');
+    
+    const data = subjectData[subjectKey];
+    if (!data) return;
+
+    currentlySelectedSubjectName = data.name;
+
+    // Заполняем панель данными
+    document.getElementById('panel-subject-name').innerText = data.name;
+    document.getElementById('panel-subject-tag').innerText = data.tag;
+    document.getElementById('panel-feature-1').innerText = data.f1;
+    document.getElementById('panel-feature-2').innerText = data.f2;
+    document.getElementById('panel-feature-3').innerText = data.f3;
+
+    // Показываем панель с анимацией
+    const panel = document.getElementById('subject-details');
+    panel.style.display = 'block';
+    
+    // Плавно скроллим к панели, чтобы пользователь сразу её увидел
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function enrollToCurrentSubject() {
+    // Находим кнопку-таб в форме, соответствующую выбранному предмету
+    const tabs = document.querySelectorAll('.subject-tabs .tab-btn');
+    let targetTab = null;
+    
+    tabs.forEach(tab => {
+      tab.classList.remove('active');
+      if (tab.getAttribute('data-value') === currentlySelectedSubjectName || 
+          (currentlySelectedSubjectName === "Обществознание" && tab.getAttribute('data-value') === "Обществознание")) {
+        targetTab = tab;
+      }
+    });
+
+    if (targetTab) {
+      targetTab.classList.add('active');
+    }
+    
+    // Обновляем скрытый инпут
+    updateHiddenInput();
+
+    // Скроллим к форме
+    document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+  }
+
   function switchApproach(index, element) {
     const tabs = document.querySelectorAll('.approach-tab-btn');
     const texts = document.querySelectorAll('.approach-text');
