@@ -92,6 +92,7 @@
     flex-direction: column;
     justify-content: center;
     padding-top: 140px;
+    padding-bottom: 20px;
   }
   h1 {
     font-family: 'Unbounded', sans-serif;
@@ -155,12 +156,13 @@
     border-color: rgba(255,255,255,0.2);
   }
 
-  /* СТАТИСТИКА (Обновлено на 10+ предметов) */
+  /* СТАТИСТИКА */
   .stats-block {
     background: var(--gray);
     border: 1px solid rgba(255,255,255,0.04);
     border-radius: 16px;
     padding: 40px;
+    margin-bottom: 40px;
   }
   .stats-grid {
     display: grid;
@@ -183,6 +185,46 @@
     font-size: 14px;
     color: #aaa;
     line-height: 1.5;
+  }
+
+  /* СТИЛЬНАЯ БЕГУЩАЯ СТРОКА */
+  .marquee-wrapper {
+    background: var(--accent);
+    color: var(--black);
+    padding: 20px 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .marquee-content {
+    display: flex;
+    white-space: nowrap;
+    gap: 40px;
+    animation: scrollMarquee 25s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: clamp(14px, 2vw, 20px);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .marquee-item::after {
+    content: "•";
+    color: var(--black);
+    opacity: 0.3;
+  }
+  @keyframes scrollMarquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
   }
 
   /* НАШ ПОДХОД */
@@ -244,10 +286,10 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* СТИЛЬНАЯ СЕТКА-ВИТРИНА ПРЕДМЕТОВ (Чистый UX без каши) */
+  /* СЕТКА ПРЕДМЕТОВ */
   .subjects-showcase-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки на ПК */
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
   
@@ -431,7 +473,7 @@
     box-shadow: 0 8px 24px rgba(232,255,71,0.2);
   }
 
-  /* АДАПТИВНОСТЬ К ЭКРАНАМ */
+  /* АДАПТИВНОСТЬ */
   @media (max-width: 1024px) {
     .subjects-showcase-grid { grid-template-columns: repeat(3, 1fr); }
   }
@@ -440,25 +482,17 @@
     section { padding: 100px 16px 40px; }
     .hero-buttons { flex-direction: column; }
     
-    .stats-block { padding: 24px; }
+    .stats-block { padding: 24px; margin-bottom: 32px; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    
+    .marquee-wrapper { padding: 14px 0; }
     
     .approach-container { padding: 20px; }
     .approach-tabs { grid-template-columns: repeat(2, 1fr); gap: 8px; }
     
-    /* Идеальные 2 аккуратные колонки на смартфонах */
-    .subjects-showcase-grid { 
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 10px; 
-    }
-    .subject-showcase-card { 
-      padding: 16px; 
-      min-height: 120px; 
-    }
-    .subject-showcase-card h3 { 
-      font-size: 15px; 
-      margin-bottom: 10px; 
-    }
+    .subjects-showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .subject-showcase-card { padding: 16px; min-height: 120px; }
+    .subject-showcase-card h3 { font-size: 15px; margin-bottom: 10px; }
     
     .subject-tabs { grid-template-columns: repeat(2, 1fr); gap: 6px; }
     .form-box { padding: 24px; }
@@ -493,7 +527,7 @@
     <a href="#form" class="btn btn-secondary">Оставить заявку</a>
   </div>
 
-  <!-- БЛОК СТАТИСТИКИ (Исправлено) -->
+  <!-- БЛОК СТАТИСТИКИ -->
   <div class="stats-block">
     <div class="stats-grid">
       <div class="stat-item">
@@ -512,6 +546,23 @@
         <div class="stat-num">0 ₽</div>
         <div class="stat-text">первое диагностическое занятие</div>
       </div>
+    </div>
+  </div>
+
+  <!-- БЕГУЩАЯ СТРОКА -->
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+      <div class="marquee-item">ПОДГОТОВКА К ЕГЭ</div>
+      <div class="marquee-item">ПОДГОТОВКА К ОГЭ</div>
+      <div class="marquee-item">ПОВЫШЕНИЕ УСПЕВАЕМОСТИ</div>
+      <div class="marquee-item">ВЫЯВЛЕНИЕ ПРОБЕЛОВ</div>
+      <div class="marquee-item">ИНДИВИДУАЛЬНЫЙ ПЛАН</div>
+      <!-- Дублируем контент для бесшовного зацикливания -->
+      <div class="marquee-item">ПОДГОТОВКА К ЕГЭ</div>
+      <div class="marquee-item">ПОДГОТОВКА К ОГЭ</div>
+      <div class="marquee-item">ПОВЫШЕНИЕ УСПЕВАЕМОСТИ</div>
+      <div class="marquee-item">ВЫЯВЛЕНИЕ ПРОБЕЛОВ</div>
+      <div class="marquee-item">ИНДИВИДУАЛЬНЫЙ ПЛАН</div>
     </div>
   </div>
 </section>
@@ -536,7 +587,7 @@
     </div>
   </div>
 
-  <!-- ОБНОВЛЕННАЯ СЕТКА КАРТОЧЕК ДЛЯ 10 ПРЕДМЕТОВ -->
+  <!-- СЕТКА КАРТОЧЕК ДЛЯ 10 ПРЕДМЕТОВ -->
   <div class="subjects-showcase-grid">
     
     <a href="math.html" class="subject-showcase-card">
