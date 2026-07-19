@@ -124,7 +124,6 @@
       margin: 0 4px;
     }
 
-    /* ИСПРАВЛЕНО: добавлена точка для класса */
     .hero-buttons {
       display: flex;
       gap: 16px;
@@ -491,7 +490,7 @@
       box-shadow: 0 6px 20px rgba(232,255,71,0.15);
     }
 
-    /* ФОРМА ЗАЯВКИ */
+    /* ФОРМА ЗАЯВКИ С КАЛЬКУЛЯТОРОМ */
     .form-section {
       background: var(--gray);
       border-top: 1px solid rgba(255,255,255,0.03);
@@ -526,12 +525,26 @@
       gap: 16px;
     }
     
-    .subject-tabs {
+    .form-label-text {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-family: 'Unbounded', sans-serif;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .subject-tabs, .format-tabs, .package-tabs {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
       margin-bottom: 8px;
     }
+    .format-tabs {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
     .tab-btn {
       background: rgba(255,255,255,0.02);
       border: 1px solid rgba(255,255,255,0.06);
@@ -555,8 +568,15 @@
       border-color: var(--accent);
       color: var(--accent);
     }
+    .tab-btn span {
+      display: block;
+      font-size: 10px;
+      color: #666;
+      font-weight: normal;
+      margin-top: 2px;
+    }
 
-    input {
+    input, select {
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 6px;
@@ -568,24 +588,13 @@
       width: 100%;
       transition: border-color 0.2s;
     }
-    input:focus { border-color: var(--accent); }
+    input:focus, select:focus { border-color: var(--accent); }
 
     .select-wrapper { position: relative; width: 100%; }
     select {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px;
-      padding: 18px;
-      color: var(--white);
-      font-family: 'Mulish', sans-serif;
-      font-size: 15px;
-      outline: none;
-      width: 100%;
-      transition: border-color 0.2s;
       appearance: none;
       cursor: pointer;
     }
-    select:focus { border-color: var(--accent); }
     .select-wrapper::after {
       content: "";
       position: absolute;
@@ -595,6 +604,33 @@
       border: 5px solid transparent;
       border-top-color: var(--muted);
       pointer-events: none;
+    }
+
+    /* Виджет вывода расчета в форме */
+    .calculator-result-box {
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed rgba(232,255,71,0.2);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .calc-total-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .calc-total-price {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--accent);
+      margin: 6px 0;
+    }
+    .calc-per-lesson {
+      font-size: 12px;
+      color: #888;
     }
 
     .btn-submit {
@@ -620,19 +656,10 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* АНИМАЦИЯ ПОДСКАЗКИ ДЛЯ КАРТОЧКИ */
-    @keyframes hintJump {
-      0% { transform: translateY(0); border-color: rgba(255,255,255,0.05); }
-      30% { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); }
-      60% { transform: translateY(-10px); border-color: var(--accent); }
-      100% { transform: translateY(0); border-color: rgba(255,255,255,0.05); }
-    }
-
     .js-hint-jump {
       animation: hintJump 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* АДАПТИВНОСТЬ */
     @media (max-width: 1100px) {
       .subjects-showcase-grid { grid-template-columns: repeat(4, 1fr); }
     }
@@ -657,6 +684,7 @@
       .panel-features { grid-template-columns: 1fr; gap: 16px; }
       
       .subject-tabs { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      .package-tabs { grid-template-columns: 1fr; gap: 6px; }
       .form-box { padding: 24px; }
     }
   </style>
@@ -686,7 +714,7 @@
   
   <div class="hero-buttons">
     <a href="#subjects" class="btn btn-primary">ВЫБРАТЬ ПРЕДМЕТ</a>
-    <a href="#form" class="btn btn-secondary">Оставить заявку</a>
+    <a href="#form" class="btn btn-secondary">Рассчитать стоимость</a>
   </div>
 
   <!-- БЛОК СТАТИСТИКИ -->
@@ -743,7 +771,7 @@
     <div class="approach-content">
       <div class="approach-text active">Подтягиваем успеваемость по школьной программе, помогаем разобраться со сложной домашкой и точечно готовим к ОГЭ/ЕГЭ по актуальным базам ФИПИ.</div>
       <div class="approach-text">Учим видеть причинно-следственные связи и логику формул, а не заучивать сухие тексты. Никакой зубрёжки шаблонов.</div>
-      <div class="approach-text">Строим гибкий план обучения под текущий уровень знаний, скорость усвоения материала и индивидуальную цель каждого ученика.</div>
+      <div class="approach-text">Строим гибкий план обучения под текущий уровень знаний, скорость усвоения материала и individualную цель каждого ученика.</div>
       <div class="approach-text">Регулярные срезы знаний на платформе и развёрнутая обратная связь для родителей, чтобы наглядно видеть реальный прогресс.</div>
     </div>
   </div>
@@ -801,7 +829,7 @@
           <span class="price-notice">Цена зависит от программы: школа, ОГЭ или ЕГЭ</span>
         </div>
 
-        <button class="btn-panel-cta" onclick="enrollToCurrentSubject()">ЗАПИСАТЬСЯ К ПЕДАГОГУ →</button>
+        <button class="btn-panel-cta" onclick="enrollToCurrentSubject()">РАССЧИТАТЬ СТОИМОСТЬ →</button>
       </div>
 
       <!-- Правый блок: Программа и специфика -->
@@ -831,43 +859,85 @@
   </div>
 </section>
 
-<!-- СЕКЦИЯ С ФОРМОЙ -->
+<!-- СЕКЦИЯ С ФОРМОЙ-КАЛЬКУЛЯТОРОМ -->
 <section id="form" class="form-section">
   <div class="form-container">
     <div class="form-box">
-      <h2>Записаться на пробное</h2>
-      <p>Познакомимся, определим уровень знаний и составим персональную траекторию обучения.</p>
+      <h2>Конструктор обучения</h2>
+      <p>Выберите параметры, чтобы мгновенно узнать точную стоимость занятий.</p>
       
-      <form action="https://formspree.io/f/mgobayyd" method="POST" onsubmit="return prepareSubmit()">
+      <form action="https://formspree.io/f/mgobayyd" method="POST">
+        <!-- Скрытые поля для передачи параметров в Formspree -->
         <input type="hidden" name="subject" id="selected-subject" value="Математика">
-        
-        <div class="subject-tabs">
-          <div class="tab-btn active" data-value="Математика" onclick="toggleSubject(this)">Математика</div>
-          <div class="tab-btn" data-value="История" onclick="toggleSubject(this)">История</div>
-          <div class="tab-btn" data-value="Обществознание" onclick="toggleSubject(this)">Общество</div>
-          <div class="tab-btn" data-value="Русский язык" onclick="toggleSubject(this)">Русский яз.</div>
-          <div class="tab-btn" data-value="Английский язык" onclick="toggleSubject(this)">Английский</div>
-          <div class="tab-btn" data-value="Физика" onclick="toggleSubject(this)">Физика</div>
-          <div class="tab-btn" data-value="Химия" onclick="toggleSubject(this)">Химия</div>
-          <div class="tab-btn" data-value="Биология" onclick="toggleSubject(this)">Биология</div>
-          <div class="tab-btn" data-value="Информатика" onclick="toggleSubject(this)">Информатика</div>
-          <div class="tab-btn" data-value="Литература" onclick="toggleSubject(this)">Литература</div>
+        <input type="hidden" name="format" id="selected-format" value="Индивидуально">
+        <input type="hidden" name="package" id="selected-package" value="1 занятие">
+        <input type="hidden" name="calculated_total" id="hidden-total-price" value="1200">
+
+        <!-- 1. Выбор предмета -->
+        <div>
+          <span class="form-label-text">1. Выберите предмет:</span>
+          <div class="subject-tabs">
+            <div class="tab-btn active" data-value="Математика" onclick="selectFormSubject('Математика', this)">Математика</div>
+            <div class="tab-btn" data-value="История" onclick="selectFormSubject('История', this)">История</div>
+            <div class="tab-btn" data-value="Обществознание" onclick="selectFormSubject('Обществознание', this)">Общество</div>
+            <div class="tab-btn" data-value="Русский язык" onclick="selectFormSubject('Русский язык', this)">Русский яз.</div>
+            <div class="tab-btn" data-value="Английский язык" onclick="selectFormSubject('Английский язык', this)">Английский</div>
+            <div class="tab-btn" data-value="Физика" onclick="selectFormSubject('Физика', this)">Физика</div>
+            <div class="tab-btn" data-value="Химия" onclick="selectFormSubject('Химия', this)">Химия</div>
+            <div class="tab-btn" data-value="Биология" onclick="selectFormSubject('Биология', this)">Биология</div>
+            <div class="tab-btn" data-value="Информатика" onclick="selectFormSubject('Информатика', this)">Информатика</div>
+            <div class="tab-btn" data-value="Литература" onclick="selectFormSubject('Литература', this)">Литература</div>
+          </div>
+        </div>
+
+        <!-- 2. Выбор формата -->
+        <div>
+          <span class="form-label-text">2. Формат занятий:</span>
+          <div class="format-tabs">
+            <div class="tab-btn active" data-value="Индивидуально" onclick="selectFormFormat('Индивидуально', this)">Индивидуально</div>
+            <div class="tab-btn" data-value="В мини-группе" onclick="selectFormFormat('В мини-группе', this)">В мини-группе <span>До −30%</span></div>
+          </div>
+        </div>
+
+        <!-- 3. Выбор программы/класса -->
+        <div>
+          <span class="form-label-text">3. Цель обучения и класс:</span>
+          <div class="select-wrapper">
+            <select name="grade" id="form-grade-select" onchange="calculatePrice()" required>
+              <option value="school" selected>Школьная программа (5–8, 10 классы)</option>
+              <option value="oge">Подготовка к ОГЭ (9 класс)</option>
+              <option value="ege">Подготовка к ЕГЭ (11 класс)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 4. Выбор пакета занятий -->
+        <div>
+          <span class="form-label-text">4. Объем пакета занятий:</span>
+          <div class="package-tabs">
+            <div class="tab-btn active" data-value="1 занятие" data-lessons="1" onclick="selectFormPackage('1 занятие', this)">1 занятие<span>Пробное</span></div>
+            <div class="tab-btn" data-value="8 занятий" data-lessons="8" onclick="selectFormPackage('8 занятий', this)">8 занятий<span>Месяц / Скидка 5%</span></div>
+            <div class="tab-btn" data-value="24 занятия" data-lessons="24" onclick="selectFormPackage('24 занятия', this)">24 занятия<span>Модуль / Скидка 10%</span></div>
+          </div>
+        </div>
+
+        <!-- Контакты -->
+        <div>
+          <span class="form-label-text">5. Ваши контактные данные:</span>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <input type="tel" name="phone" placeholder="Номер телефона" required>
+          </div>
+        </div>
+
+        <!-- ИНТЕРАКТИВНЫЙ ВЫВОД СТОИМОСТИ -->
+        <div class="calculator-result-box">
+          <div class="calc-total-label">Итоговая стоимость пакета:</div>
+          <div id="calc-total-display" class="calc-total-price">1 200 ₽</div>
+          <div id="calc-per-lesson-display" class="calc-per-lesson">1 200 ₽ за занятие</div>
         </div>
         
-        <input type="text" name="name" placeholder="Ваше имя" required>
-        <input type="tel" name="phone" placeholder="Номер телефона" required>
-        
-        <div class="select-wrapper">
-          <select name="grade" required>
-            <option value="" disabled selected>Класс ученика</option>
-            <option>5–8 класс</option>
-            <option>9 класс (ОГЭ)</option>
-            <option>10 класс</option>
-            <option>11 класс (ЕГЭ)</option>
-          </select>
-        </div>
-        
-        <button type="submit" class="btn-submit">ЗАПИСАТЬСЯ НА ДИАГНОСТИКУ →</button>
+        <button type="submit" class="btn-submit">ЗАФИКСИРОВАТЬ ЦЕНУ И ЗАПИСАТЬСЯ →</button>
       </form>
     </div>
   </div>
@@ -875,123 +945,31 @@
 
 <script>
   const subjectData = {
-    math: {
-      name: "Математика",
-      teacher: "Преподаватель математики • Эксперт ОГЭ/ЕГЭ",
-      exp: "опыт 5+ лет",
-      letters: "МТ",
-      img: "", 
-      price: "от 1 200 ₽",
-      f1: "Разбираем сложные абстракции на визуальных моделях. Избавляем от страха перед геометрией, тригонометрией и текстовыми задачами.",
-      f2: "Системный разбор структуры экзаменов. Учим оформлять вторую часть по строгим критериям ФИПИ, чтобы не потерять ни одного балла.",
-      f3: "Уверенность у доски, ликвидация хронических пробелов в вычислениях и готовность к любым диагностическим работам."
-    },
-    history: {
-      name: "История",
-      teacher: "Преподаватель истории • Профессиональный историк",
-      exp: "опыт 4 года",
-      letters: "ИС",
-      img: "",
-      price: "от 1 100 ₽",
-      f1: "Превращаем хаотичный набор дат и правителей в стройную логическую цепочку причин и следствий. Уделяем особое внимание истории культуры и картам.",
-      f2: "Отработка сложных заданий на аргументацию и анализ исторических источников. Учим формулировать тезисы без «воды».",
-      f3: "Глубокое понимание исторических процессов, лёгкое запоминание дат через ассоциативные механики."
-    },
-    social: {
-      name: "Обществознание",
-      teacher: "Преподаватель обществознания • Педагог-социолог",
-      exp: "опыт 3 года",
-      letters: "ОБ",
-      img: "",
-      price: "от 1 100 ₽",
-      f1: "Изучаем право, экономику, политику и социологию на реальных кейсах из современных СМИ и законов РФ. Никакой оторванной от жизни теории.",
-      f2: "Ювелирный разбор второй части: учим давать точные развёрнутые примеры и иллюстрировать теоретические положения.",
-      f3: "Способность ориентироваться в социальных процессах и корректно использовать терминологию для максимального балла."
-    },
-    russian: {
-      name: "Русский язык",
-      teacher: "Преподаватель русского языка • Филолог",
-      exp: "опыт 5 лет",
-      letters: "РУ",
-      img: "",
-      price: "от 1 200 ₽",
-      f1: "Объясняем орфографию и пунктуацию через внутреннюю логику языка, а не бездумное зазубривание сотен исключений.",
-      f2: "Пошаговый алгоритм написания сочинения: от точного выявления проблемы текста до выстраивания безупречной смысловой связи.",
-      f3: "Грамотность в повседневной жизни и автоматическое применение правил на экзаменах без стресса."
-    },
-    english: {
-      name: "Английский язык",
-      teacher: "Преподаватель английского • Дипломированный лингвист",
-      exp: "опыт 5+ лет",
-      letters: "EN",
-      img: "",
-      price: "от 1 400 ₽",
-      f1: "Комплексное развитие всех навыков: аудирование, чтение, грамматика и лексика. Разрушаем барьер в говорении с помощью интерактивных практик.",
-      f2: "Подготовка к устной части экзамена по строгим шаблонам и таймингам. Проработка типичных ловушек в секции грамматики.",
-      f3: "Свободное выражение мыслей на английском и чёткое понимание структуры экзаменационного формата."
-    },
-    physics: {
-      name: "Физика",
-      teacher: "Преподаватель физики • Инженер-физик",
-      exp: "опыт 4 года",
-      letters: "ФЗ",
-      img: "",
-      price: "от 1 300 ₽",
-      f1: "Связываем формулы с реальными физическими явлениями вокруг нас. Объясняем механику, термодинамику и электричество «на пальцах».",
-      f2: "Особый акцент на математический аппарат физики (вывод формул, работа с векторами и графиками) и разбор качественных задач.",
-      f3: "Ученик начинает видеть за формулами живую природу, развивает инженерное мышление и щёлкает задачи любой сложности."
-    },
-    chemistry: {
-      name: "Химия",
-      teacher: "Преподаватель химии • Действующий химик-технолог",
-      exp: "опыт 3 года",
-      letters: "ХМ",
-      img: "",
-      price: "от 1 300 ₽",
-      f1: "Проводники в мир неорганической и органической химии. Объясняем логику протекания реакций, а не заставляем зубрить таблицы наизусть.",
-      f2: "Разбор алгоритмов решения расчетных задач повышенной сложности (знаменитая 34-я задача в ЕГЭ) и мысленный эксперимент.",
-      f3: "Чёткое понимание химических процессов, уверенное составление уравнений реакций и высокие баллы."
-    },
-    biology: {
-      name: "Биология",
-      teacher: "Преподаватель биологи • Академический биолог",
-      exp: "опыт 5 лет",
-      letters: "БИ",
-      img: "",
-      price: "от 1 300 ₽",
-      f1: "Изучаем анатомию, ботанику, зоологию и общую биологию через наглядные атласы и схемы. Логика эволюции вместо зубрёжки.",
-      f2: "Проработка коварных вопросов развёрнутой части, где требуется знание biological контекста и точные формулировки.",
-      f3: "Системные знания о живой природе, понимание взаимосвязей в экосистемах и успешное прохождение тестов."
-    },
-    informatics: {
-      name: "Информатика",
-      teacher: "Преподаватель информатики • Разработчик",
-      exp: "опыт 3 года",
-      letters: "ИТ",
-      img: "",
-      price: "от 1 400 ₽",
-      f1: "Учим программированию на Python с нуля. Показываем, как решать большинство задач экзамена эффективным кодом, а не вручную.",
-      f2: "Практическая работа с электронными таблицами и базами данных. Настройка алгоритмов для автоматизации вычислений.",
-      f3: "Развитое алгоритмическое мышление и умение использовать компьютер как мощный инструмент для решения экзаменационных задач."
-    },
-    literature: {
-      name: "Литература",
-      teacher: "Преподаватель литературы • Литературовед",
-      exp: "опыт 4 года",
-      letters: "ЛТ",
-      img: "",
-      price: "от 1 200 ₽",
-      f1: "Глубокий анализ художественных текстов, лирики и драматургии. Изучаем историко-литературный контекст и позицию авторов.",
-      f2: "Написание литературных сочинений по строгим критериям: учим правильно привлекать текст, использовать термины и избегать речевых ошибок.",
-      f3: "Навык аргументированного анализа текстов, развитая речь и успешное написание всех развёрнутых работ."
-    }
+    math: { name: "Математика", teacher: "Преподаватель математики • Эксперт ОГЭ/ЕГЭ", exp: "опыт 5+ лет", letters: "МТ", img: "", price: "от 1 200 ₽", basePrice: 1200, f1: "Разбираем сложные абстракции на визуальных моделях. Избавляем от страха перед геометрией, тригонометрией и текстовыми задачами.", f2: "Системный разбор структуры экзаменов. Учим оформлять вторую часть по строгим критериям ФИПИ, чтобы не потерять ни одного балла.", f3: "Уверенность у доски, ликвидация хронических пробелов в вычислениях и готовность к любым диагностическим работам." },
+    history: { name: "История", teacher: "Преподаватель истории • Профессиональный историк", exp: "опыт 4 года", letters: "ИС", img: "", price: "от 1 100 ₽", basePrice: 1100, f1: "Превращаем хаотичный набор дат и правителей в стройную логическую цепочку причин и следствий. Уделяем особое внимание истории культуры и картам.", f2: "Отработка сложных заданий на аргументацию и анализ исторических источников. Учим формулировать тезисы без «воды».", f3: "Глубокое понимание исторических процессов, лёгкое запоминание дат через ассоциативные механики." },
+    social: { name: "Обществознание", teacher: "Преподаватель обществознания • Педагог-социолог", exp: "опыт 3 года", letters: "ОБ", img: "", price: "от 1 100 ₽", basePrice: 1100, f1: "Изучаем право, экономику, политику и социологию на реальных кейсах из современных СМИ и законов РФ. Никакой оторванной от жизни теории.", f2: "Ювелирный разбор второй части: учим давать точные развёрнутые примеры и иллюстрировать теоретические положения.", f3: "Способность ориентироваться в социальных процессах и корректно использовать терминологию для максимального балла." },
+    russian: { name: "Русский язык", teacher: "Преподаватель русского языка • Филолог", exp: "опыт 5 лет", letters: "РУ", img: "", price: "от 1 200 ₽", basePrice: 1200, f1: "Объясняем орфографию и пунктуацию через внутреннюю логику языка, а не бездумное зазубривание сотен исключений.", f2: "Пошаговый алгоритм написания сочинения: от точного выявления проблемы текста до выстраивания безупречной смысловой связи.", f3: "Грамотность в повседневной жизни и автоматическое применение правил на экзаменах без стресса." },
+    english: { name: "Английский язык", teacher: "Преподаватель английского • Дипломированный лингвист", exp: "опыт 5+ лет", letters: "EN", img: "", price: "от 1 400 ₽", basePrice: 1400, f1: "Комплексное развитие всех навыков: аудирование, чтение, грамматика и лексика. Разрушаем барьер в говорении с помощью интерактивных практик.", f2: "Подготовка к устной части экзамена по строгим шаблонам и таймингам. Проработка типичных ловушек в секции грамматики.", f3: "Свободное выражение мыслей на английском и чёткое понимание структуры экзаменационного формата." },
+    physics: { name: "Физика", teacher: "Преподаватель физики • Инженер-физик", exp: "опыт 4 года", letters: "ФЗ", img: "", price: "от 1 300 ₽", basePrice: 1300, f1: "Связываем формулы с реальными физическими явлениями вокруг нас. Объясняем механику, термодинамику и электричество «на пальцах».", f2: "Особый акцент на математический аппарат физики (вывод формул, работа с векторами и графиками) и разбор качественных задач.", f3: "Ученик начинает видеть за формулами живую природу, развивает инженерное мышление и щёлкает задачи любой сложности." },
+    chemistry: { name: "Химия", teacher: "Преподаватель химии • Действующий химик-технолог", exp: "опыт 3 года", letters: "ХМ", img: "", price: "от 1 300 ₽", basePrice: 1300, f1: "Проводники в мир неорганической и органической химии. Объясняем логику протекания реакций, а не заставляем зубрить таблицы наизусть.", f2: "Разбор алгоритмов решения расчетных задач повышенной сложности (знаменитая 34-я задача в ЕГЭ) и мысленный эксперимент.", f3: "Чёткое понимание химических процессов, уверенное составление уравнений реакций и высокие баллы." },
+    biology: { name: "Биология", teacher: "Преподаватель биологи • Академический биолог", exp: "опыт 5 лет", letters: "БИ", img: "", price: "от 1 300 ₽", basePrice: 1300, f1: "Изучаем анатомию, ботанику, зоологию и общую биологию через наглядные атласы и схемы. Логика эволюции вместо зубрёжки.", f2: "Проработка коварных вопросов развёрнутой части, где требуется знание биологического контекста и точные формулировки.", f3: "Системные знания о живой природе, понимание взаимосвязей в экосистемах и успешное прохождение тестов." },
+    informatics: { name: "Информатика", teacher: "Преподаватель информатики • Разработчик", exp: "опыт 3 года", letters: "ИТ", img: "", price: "от 1 400 ₽", basePrice: 1400, f1: "Учим программированию на Python с нуля. Показываем, как решать большинство задач экзамена эффективным кодом, а не вручную.", f2: "Практическая работа с электронными таблицами и базами данных. Настройка алгоритмов для автоматизации вычислений.", f3: "Развитое алгоритмическое мышление и умение использовать компьютер как мощный инструмент для решения экзаменационных задач." },
+    literature: { name: "Литература", teacher: "Преподаватель литературы • Литературовед", exp: "опыт 4 года", letters: "ЛТ", img: "", price: "от 1 200 ₽", basePrice: 1200, f1: "Глубокий анализ художественных текстов, лирики и драматургии. Изучаем историко-литературный контекст и позицию авторов.", f2: "Написание литературных сочинений по строгим критериям: учим правильно привлекать текст, использовать термины и избегать речевых ошибок.", f3: "Навык аргументированного анализа текстов, развитая речь и успешное написание всех развёрнутых работ." }
+  };
+
+  // Переменные состояния калькулятора
+  let calcState = {
+    subjectName: "Математика",
+    basePrice: 1200,
+    format: "Индивидуально",
+    gradeKey: "school",
+    lessonsCount: 1
   };
 
   let currentlySelectedSubjectName = "Математика";
 
   function showSubjectDetails(subjectKey, cardElement) {
     cardElement.classList.remove('js-hint-jump');
-    
     document.querySelectorAll('.subject-showcase-card').forEach(card => card.classList.remove('active'));
     cardElement.classList.add('active');
     
@@ -1007,8 +985,6 @@
     document.getElementById('panel-feature-1').innerText = data.f1;
     document.getElementById('panel-feature-2').innerText = data.f2;
     document.getElementById('panel-feature-3').innerText = data.f3;
-    
-    // Динамическая подстановка стоимости
     document.getElementById('panel-price').innerText = data.price + " / занятие";
 
     const imgElement = document.getElementById('teacher-img');
@@ -1029,23 +1005,90 @@
     panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
+  // Перенос данных из панели в калькулятор при клике на СТА
   function enrollToCurrentSubject() {
     const tabs = document.querySelectorAll('.subject-tabs .tab-btn');
     let targetTab = null;
     
     tabs.forEach(tab => {
-      tab.classList.remove('active');
-      if (tab.getAttribute('data-value') === currentlySelectedSubjectName) {
-        targetTab = tab;
-      }
+      if (tab.getAttribute('data-value') === currentlySelectedSubjectName) targetTab = tab;
     });
 
-    if (targetTab) {
-      targetTab.classList.add('active');
-    }
-    
-    updateHiddenInput();
+    if (targetTab) targetTab.click();
     document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ЛОГИКА ИНТЕРАКТИВНОГО КАЛЬКУЛЯТОРА */
+
+  function selectFormSubject(name, element) {
+    document.querySelectorAll('.subject-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+    
+    calcState.subjectName = name;
+    document.getElementById('selected-subject').value = name;
+
+    // Ищем базовую цену предмета
+    for (let key in subjectData) {
+      if (subjectData[key].name === name) {
+        calcState.basePrice = subjectData[key].basePrice;
+        break;
+      }
+    }
+    calculatePrice();
+  }
+
+  function selectFormFormat(format, element) {
+    document.querySelectorAll('.format-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+    
+    calcState.format = format;
+    document.getElementById('selected-format').value = format;
+    calculatePrice();
+  }
+
+  function selectFormPackage(pName, element) {
+    document.querySelectorAll('.package-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+    
+    calcState.lessonsCount = parseInt(element.getAttribute('data-lessons'));
+    document.getElementById('selected-package').value = pName;
+    calculatePrice();
+  }
+
+  function calculatePrice() {
+    const gradeSelect = document.getElementById('form-grade-select');
+    calcState.gradeKey = gradeSelect.value;
+
+    // 1. Берем базовую стоимость предмета
+    let pricePerLesson = calcState.basePrice;
+
+    // 2. Наценка за сложность программы (ОГЭ / ЕГЭ)
+    if (calcState.gradeKey === 'oge') pricePerLesson += 100;
+    if (calcState.gradeKey === 'ege') pricePerLesson += 200;
+
+    // 3. Скидка за формат мини-группы (минус 30%)
+    if (calcState.format === 'В мини-группе') {
+      pricePerLesson = Math.round(pricePerLesson * 0.7);
+    }
+
+    // 4. Расчет полной стоимости с учетом скидок на пакеты
+    let totalPrice = pricePerLesson * calcState.lessonsCount;
+    
+    if (calcState.lessonsCount === 8) {
+      totalPrice = Math.round(totalPrice * 0.95); // Скидка 5%
+    } else if (calcState.lessonsCount === 24) {
+      totalPrice = Math.round(totalPrice * 0.90); // Скидка 10%
+    }
+
+    // Вычисляем реальную цену за занятие в пакете для красивого вывода
+    let realPricePerLesson = Math.round(totalPrice / calcState.lessonsCount);
+
+    // 5. Вывод результатов на экран
+    document.getElementById('calc-total-display').innerText = totalPrice.toLocaleString('ru-RU') + " ₽";
+    document.getElementById('calc-per-lesson-display').innerText = realPricePerLesson.toLocaleString('ru-RU') + " ₽ за занятие";
+    
+    // Запись финальной суммы в скрытое поле для отправки заявки
+    document.getElementById('hidden-total-price').value = totalPrice;
   }
 
   function switchApproach(index, element) {
@@ -1057,34 +1100,11 @@
     texts[index].classList.add('active');
   }
 
-  function toggleSubject(element) {
-    element.classList.toggle('active');
-    const activeTabs = document.querySelectorAll('.subject-tabs .tab-btn.active');
-    if (activeTabs.length === 0) {
-      element.classList.add('active');
-    }
-    updateHiddenInput();
-  }
-
-  function updateHiddenInput() {
-    const activeTabs = document.querySelectorAll('.subject-tabs .tab-btn.active');
-    const selectedValues = [];
-    activeTabs.forEach(tab => {
-      selectedValues.push(tab.getAttribute('data-value'));
-    });
-    document.getElementById('selected-subject').value = selectedValues.join(', ');
-  }
-
-  function prepareSubmit() {
-    updateHiddenInput();
-    return true;
-  }
-
-  // СКРИПТ АНИМАЦИИ ПОДСКАЗКИ ПРИ СКРОЛЛЕ
   document.addEventListener('DOMContentLoaded', () => {
+    calculatePrice(); // Считаем базовую цену при старте
+    
     const grid = document.querySelector('.subjects-showcase-grid');
     const firstCard = document.querySelector('.subject-showcase-card');
-
     if (grid && firstCard) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1094,7 +1114,6 @@
           }
         });
       }, { threshold: 0.3 });
-
       observer.observe(grid);
     }
   });
