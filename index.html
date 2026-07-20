@@ -987,6 +987,50 @@
       line-height: 1.7;
     }
 
+
+    /* СРАВНЕНИЕ */
+    .compare-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .compare-table thead th {
+      padding: 14px 20px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .compare-table thead th:first-child { color: var(--muted); width: 36%; }
+    .compare-table thead th:nth-child(2) { color: var(--accent); }
+    .compare-table thead th:nth-child(3) { color: #555; }
+    .compare-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .compare-table tbody tr:last-child { border-bottom: none; }
+    .compare-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .compare-table td {
+      padding: 13px 20px;
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+    .compare-table td:first-child { color: #777; font-size: 13px; }
+    .compare-table td:nth-child(2) { color: var(--white); }
+    .compare-table td:nth-child(3) { color: #555; }
+    .compare-check { color: var(--accent); margin-right: 6px; }
+    .compare-cross { color: #444; margin-right: 6px; }
+    @media (max-width: 600px) {
+      .compare-table td, .compare-table thead th { padding: 11px 12px; }
+      .compare-table { font-size: 13px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1663,6 +1707,49 @@
   });
 </script>
 
+
+
+<!-- СРАВНЕНИЕ -->
+<div class="compare-section">
+  <div class="section-label" style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">Почему индивидуально</div>
+  <h2 class="section-title" style="margin-bottom:24px;">Индивидуально vs Курс</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ОТ и ДО</th>
+        <th>Групповой курс</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Темп обучения</td>
+        <td><span class="compare-check">✓</span>Под твой уровень</td>
+        <td><span class="compare-cross">—</span>Общий для всех</td>
+      </tr>
+      <tr>
+        <td>Вопросы</td>
+        <td><span class="compare-check">✓</span>В любой момент занятия</td>
+        <td><span class="compare-cross">—</span>В чат к куратору</td>
+      </tr>
+      <tr>
+        <td>Расписание</td>
+        <td><span class="compare-check">✓</span>Под тебя</td>
+        <td><span class="compare-cross">—</span>Фиксированное</td>
+      </tr>
+      <tr>
+        <td>Разбор ошибок</td>
+        <td><span class="compare-check">✓</span>Каждое занятие лично</td>
+        <td><span class="compare-cross">—</span>Общая проверка</td>
+      </tr>
+      <tr>
+        <td>Программа</td>
+        <td><span class="compare-check">✓</span>Под твои пробелы</td>
+        <td><span class="compare-cross">—</span>Единая для всех</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- FAQ -->
 <div class="faq-section">
