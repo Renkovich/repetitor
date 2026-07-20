@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отзывы учеников | ОТ и ДО</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f2eb;
+      --accent: #e8ff47;
+      --gray: #141414;
+      --card-bg: #1a1a1a;
+      --muted: #888;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--black); color: var(--white); font-family: 'Mulish', sans-serif; }
+
+    header {
+      background: rgba(10,10,10,0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .logo-icon {
+      background: rgba(232,255,71,0.1);
+      border: 1px solid rgba(232,255,71,0.3);
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .logo-text {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+    }
+    .back-link {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      text-transform: uppercase;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+    }
+    .page-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .page-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .page-sub {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+    .review-card:hover { border-color: rgba(255,255,255,0.12); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(232,255,71,0.1);
+      border: 1px solid rgba(232,255,71,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .review-avatar img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .review-meta { display: flex; flex-direction: column; gap: 2px; }
+    .review-name { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); }
+    .review-subject { font-size: 12px; color: var(--muted); }
+    .review-stars { display: flex; gap: 3px; }
+    .review-stars span { color: var(--accent); font-size: 13px; }
+    .review-text { font-size: 14px; color: #aaa; line-height: 1.7; flex: 1; }
+    .review-result {
+      font-size: 12px;
+      color: rgba(232,255,71,0.7);
+      font-weight: 600;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .cta-block {
+      margin-top: 64px;
+      background: var(--gray);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+    }
+    .cta-block h2 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .cta-block p { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      padding: 18px 36px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,255,71,0.2); }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 24px;
+      text-align: center;
+    }
+    .footer-note { font-size: 13px; color: #333; }
+
+    @media (max-width: 900px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+      .cta-block { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">● → ●</div>
+      <div class="logo-text">ОТ и ДО</div>
+    </a>
+    <a href="index.html" class="back-link">← На главную</a>
+  </div>
+</header>
+
+<div class="content">
+
+  <div class="page-header">
+    <div class="page-label">Отзывы</div>
+    <h1 class="page-title">Что говорят ученики</h1>
+    <p class="page-sub">Реальные результаты реальных учеников</p>
+  </div>
+
+  <div class="reviews-grid">
+
+    <div class="review-card" style="animation-delay:0s">
+      <div class="review-header">
+        <div class="review-avatar"><img src="" alt="">АК</div>
+        <div class="review-meta">
+          <div class="review-name">Аня К.</div>
+          <div class="review-subject">Математика · 11 класс</div>
+        </div>
+      </div>
+      <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="review-text">До занятий вообще не понимала тригонометрию и производные. Преподаватель объяснил через логику, а не формулы — всё встало на свои места буквально за пару уроков.</div>
+      <div class="review-result">ЕГЭ: 84 балла</div>
+    </div>
+
+    <div class="review-card" style="animation-delay:0.08s">
+      <div class="review-header">
+        <div class="review-avatar"><img src="" alt="">МС</div>
+        <div class="review-meta">
+          <div class="review-name">Миша С.</div>
+          <div class="review-subject">История · 9 класс</div>
+        </div>
+      </div>
+      <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="review-text">Думал, что история — это просто зубрёжка дат. Оказалось, всё гораздо интереснее. Теперь понимаю логику событий и сдал ОГЭ намного лучше, чем ожидал.</div>
+      <div class="review-result">ОГЭ: 4 балла</div>
+    </div>
+
+    <div class="review-card" style="animation-delay:0.16s">
+      <div class="review-header">
+        <div class="review-avatar"><img src="" alt="">ДВ</div>
+        <div class="review-meta">
+          <div class="review-name">Даша В.</div>
+          <div class="review-subject">Обществознание · 11 класс</div>
+        </div>
+      </div>
+      <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="review-text">Очень понравился подход — разбираем реальные примеры из жизни, а не сухой учебник. Сочинение теперь пишу уверенно, структура в голове выстроилась сама.</div>
+      <div class="review-result">ЕГЭ: 79 баллов</div>
+    </div>
+
+    <div class="review-card" style="animation-delay:0.24s">
+      <div class="review-header">
+        <div class="review-avatar"><img src="" alt="">ИП</div>
+        <div class="review-meta">
+          <div class="review-name">Илья П.</div>
+          <div class="review-subject">Физика · 10 класс</div>
+        </div>
+      </div>
+      <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="review-text">Физику не понимал от слова совсем. После нескольких занятий начал решать задачи самостоятельно — это было неожиданно даже для меня.</div>
+      <div class="review-result">Оценка выросла с 3 до 5</div>
+    </div>
+
+    <div class="review-card" style="animation-delay:0.32s">
+      <div class="review-header">
+        <div class="review-avatar"><img src="" alt="">СН</div>
+        <div class="review-meta">
+          <div class="review-name">Соня Н.</div>
+          <div class="review-subject">Английский · 8 класс</div>
+        </div>
+      </div>
+      <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="review-text">Занимаюсь три месяца — уже могу свободно говорить на простые темы. Преподаватель очень терпеливый, никогда не торопит и объясняет столько раз, сколько нужно.</div>
+      <div class="review-result">Средний балл по английскому: 5</div>
+    </div>
+
+    <div class="review-card" style="animation-delay:0.4s">
+      <div class="review-header">
+        <div class="review-avatar"><img src="" alt="">АМ</div>
+        <div class="review-meta">
+          <div class="review-name">Артём М.</div>
+          <div class="review-subject">Математика · 9 класс</div>
+        </div>
+      </div>
+      <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="review-text">Готовился к ОГЭ за два месяца, думал что не успею. Преподаватель составил чёткий план и мы разобрали все слабые темы. Сдал на 4, очень доволен результатом.</div>
+      <div class="review-result">ОГЭ: 4 балла</div>
+    </div>
+
+  </div>
+
+  <div class="cta-block">
+    <h2>Первое занятие — бесплатно</h2>
+    <p>Попробуйте сами и убедитесь в результате</p>
+    <a href="index.html#calculator" class="btn-primary">ЗАПИСАТЬСЯ НА ПРОБНОЕ →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-note">© 2026 Онлайн-школа «ОТ и ДО» · <a href="index.html" style="color:#555; text-decoration:none;">Главная</a> · <a href="privacy.html" style="color:#555; text-decoration:none;">Политика конфиденциальности</a></div>
+</footer>
+
+</body>
+</html>
