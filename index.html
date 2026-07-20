@@ -894,6 +894,99 @@
       .reviews-grid { grid-template-columns: 1fr; }
     }
 
+
+    /* МАТЕМАТИКА БАЗА/ПРОФИЛЬ */
+    .calc-mathtype-wrap {
+      margin-top: 12px;
+      display: none;
+    }
+    .calc-mathtype-wrap.visible { display: block; }
+    .calc-mathtype-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: 80px 24px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 40px;
+    }
+    .faq-item {
+      background: var(--gray);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: rgba(232,255,71,0.2); }
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 22px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .faq-question-text {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .faq-item.open .faq-question-text { color: var(--accent); }
+    .faq-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.2s;
+    }
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+      background: rgba(232,255,71,0.1);
+      border-color: rgba(232,255,71,0.3);
+    }
+    .faq-arrow svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.2s;
+    }
+    .faq-item.open .faq-arrow svg { stroke: var(--accent); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+    }
+    .faq-answer-inner {
+      padding: 0 24px 22px;
+      font-size: 15px;
+      color: #aaa;
+      line-height: 1.7;
+    }
+
   </style>
 </head>
 <body>
@@ -1020,7 +1113,7 @@
         <div class="panel-price-box">
           <span class="price-label">Стоимость обучения:</span>
           <div id="panel-price" class="price-value">от 1 200 ₽ / занятие</div>
-          <span class="price-notice">Цена зависит от программы: школа, ОГЭ или ЕГЭ</span>
+          <span class="price-notice" id="panel-price-notice">Цена зависит от программы: школа, ОГЭ или ЕГЭ</span>
         </div>
         <button class="btn-panel-cta" onclick="enrollToCurrentSubject()">ЗАПИСАТЬСЯ К ПЕДАГОГУ →</button>
       </div>
@@ -1167,6 +1260,21 @@
           <div class="calc-option-sub">10–11 классы</div>
         </div>
       </div>
+
+      <!-- Математика: база/профиль (только для ЕГЭ) -->
+      <div class="calc-mathtype-wrap" id="calc-mathtype-wrap">
+        <div class="calc-grade-label">Уровень математики:</div>
+        <div class="calc-mathtype-grid">
+          <div class="calc-option-btn" data-mathtype="base" onclick="calcSelectMathType(this)">
+            <div class="calc-option-title">База</div>
+            <div class="calc-option-sub">от 1 200 ₽ / занятие</div>
+          </div>
+          <div class="calc-option-btn" data-mathtype="profile" onclick="calcSelectMathType(this)">
+            <div class="calc-option-title">Профиль</div>
+            <div class="calc-option-sub">от 1 500 ₽ / занятие</div>
+          </div>
+        </div>
+      </div>
       <!-- Уточнение класса -->
       <div class="calc-grade-wrap" id="calc-grade-wrap">
         <div class="calc-grade-label" id="calc-grade-label">Уточните класс:</div>
@@ -1259,7 +1367,8 @@
     format: 'individual',  // individual | group
     goal: null,            // school | oge | ege
     grade: null,
-    package: 1
+    package: 1,
+    mathType: null   // base | profile (только для математики + ЕГЭ)
   };
 
   // ========================
@@ -1282,6 +1391,9 @@
     document.getElementById('panel-feature-2').innerText = data.f2;
     document.getElementById('panel-feature-3').innerText = data.f3;
     document.getElementById('panel-price').innerText = 'от ' + data.basePrice.toLocaleString('ru') + ' ₽ / занятие';
+    document.getElementById('panel-price-notice').innerText = subjectKey === 'math'
+      ? 'Цена зависит от программы: школа, ОГЭ или ЕГЭ (база / профиль)'
+      : 'Цена зависит от программы: школа, ОГЭ или ЕГЭ';
     const imgEl = document.getElementById('teacher-img');
     const lettersEl = document.getElementById('avatar-letters');
     if (data.img) { imgEl.src = data.img; imgEl.style.display='block'; lettersEl.style.display='none'; }
@@ -1326,8 +1438,40 @@
       calcState.subjects.push(key);
       el.classList.add('active');
     }
+    // Показать/скрыть база/профиль
+    const mathWrap = document.getElementById('calc-mathtype-wrap');
+    if (calcState.goal === 'ege' && calcState.subjects.includes('math')) {
+      mathWrap.classList.add('visible');
+    } else {
+      mathWrap.classList.remove('visible');
+      calcState.mathType = null;
+      document.querySelectorAll('[data-mathtype]').forEach(b => b.classList.remove('active'));
+    }
     updateMultiDiscountNote();
     calcUpdateResult();
+  }
+
+  function calcSelectMathType(el) {
+    document.querySelectorAll('[data-mathtype]').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    calcState.mathType = el.dataset.mathtype;
+    calcUpdateResult();
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+    // Закрыть все
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-answer').style.maxHeight = '0';
+    });
+    // Открыть текущий если был закрыт
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
   }
 
   function updateMultiDiscountNote() {
@@ -1353,6 +1497,14 @@
     el.classList.add('active');
     calcState.goal = el.dataset.goal;
     calcState.grade = null;
+    calcState.mathType = null;
+    document.querySelectorAll('[data-mathtype]').forEach(b => b.classList.remove('active'));
+    const mathWrap = document.getElementById('calc-mathtype-wrap');
+    if (calcState.goal === 'ege' && calcState.subjects.includes('math')) {
+      mathWrap.classList.add('visible');
+    } else {
+      mathWrap.classList.remove('visible');
+    }
     // Показываем уточнение класса
     const wrap = document.getElementById('calc-grade-wrap');
     const grid = document.getElementById('calc-grade-grid');
@@ -1411,11 +1563,20 @@
 
     calcState.subjects.forEach(key => {
       const d = subjectData[key];
-      const pricePerLesson = Math.round(d.basePrice * gMult * fMult);
+      let baseP = d.basePrice;
+      // Математика профиль ЕГЭ
+      if (key === 'math' && calcState.goal === 'ege' && calcState.mathType === 'profile') {
+        baseP = 1500;
+      }
+      const pricePerLesson = Math.round(baseP * gMult * fMult);
       subjectsTotalPerLesson += pricePerLesson;
+      let label = d.name;
+      if (key === 'math' && calcState.goal === 'ege' && calcState.mathType) {
+        label += calcState.mathType === 'base' ? ' (база)' : ' (профиль)';
+      }
       breakdownHTML += `
         <div class="calc-result-row">
-          <span>${d.name} — ${pricePerLesson.toLocaleString('ru')} ₽ × ${calcState.package} зан.</span>
+          <span>${label} — ${pricePerLesson.toLocaleString('ru')} ₽ × ${calcState.package} зан.</span>
           <span>${(pricePerLesson * calcState.package).toLocaleString('ru')} ₽</span>
         </div>`;
     });
@@ -1501,6 +1662,76 @@
     updateMultiDiscountNote();
   });
 </script>
+
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="section-label" style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">Частые вопросы</div>
+  <h2 class="section-title">FAQ</h2>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Как проходят занятия?</span>
+        <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Онлайн через Zoom. Никаких лишних программ — нужен только компьютер или телефон с интернетом. Занятие длится 60 минут, 1–2 раза в неделю в удобное для вас время.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Что будет на первом занятии?</span>
+        <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Первое занятие — бесплатная диагностика. Преподаватель разбирается с текущим уровнем, находит пробелы и составляет индивидуальный план. Никаких стрессовых тестов — просто разговор и несколько задач.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Можно ли перенести занятие?</span>
+        <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Да, если предупредить заранее — минимум за 24 часа. Перенос согласовывается напрямую с преподавателем в удобном мессенджере.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Как оплатить?</span>
+        <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Оплата после каждого занятия или пакетом — переводом на карту. Реквизиты отправим после записи на пробное занятие.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Для каких классов подходит?</span>
+        <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Работаем с учениками 5–11 классов по всем направлениям. На диагностике определяем уровень и подбираем программу индивидуально — неважно, нужно ли подтянуть школьную программу или готовиться к ОГЭ/ЕГЭ.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Что если не понравится преподаватель?</span>
+        <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Скажите нам — подберём другого. Без лишних вопросов и объяснений. Для нас важно, чтобы ученику было комфортно и результат был.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- ФУТЕР -->
 <footer class="site-footer">
