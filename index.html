@@ -1337,11 +1337,11 @@
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&subjects=${encodeURIComponent(subjects)}&format=${encodeURIComponent(format)}&goal=${encodeURIComponent(goal)}&grade=${encodeURIComponent(grade)}&package=${encodeURIComponent(pkg)}&total=${encodeURIComponent(total)}`
     }).then(() => {
-      alert('Заявка отправлена! Свяжемся с вами в течение часа.');
+      window.location.href = 'thanks.html';
       document.getElementById('calc-name').value = '';
       document.getElementById('calc-phone').value = '';
     }).catch(() => {
-      alert('Заявка принята! Свяжемся с вами в течение часа.');
+      window.location.href = 'thanks.html';
     });
   }
 
@@ -1411,7 +1411,7 @@
     </div>
 
     <div class="footer-bottom">
-      <div class="footer-copy">© 2025 Онлайн-школа «ОТ и ДО». Все права защищены.</div>
+      <div class="footer-copy">© 2026 Онлайн-школа «ОТ и ДО». Все права защищены.</div>
     </div>
   </div>
 </footer>
