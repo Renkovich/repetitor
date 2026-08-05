@@ -1332,7 +1332,7 @@
       <div class="calc-package-grid">
         <div class="calc-package-btn active" data-package="1" onclick="calcSelectPackage(this)">
           <div class="calc-pkg-count">1 занятие</div>
-          <div class="calc-pkg-name">Пробное</div>
+          <div class="calc-pkg-name">Оплата после каждого занятия</div>
           <div class="calc-pkg-no-discount">Без скидки</div>
         </div>
         <div class="calc-package-btn" data-package="8" onclick="calcSelectPackage(this)">
@@ -1371,7 +1371,7 @@
       </div>
     </div>
 
-    <button class="btn-calc-submit" onclick="calcSubmit()">ЗАФИКСИРОВАТЬ ЦЕНУ И ЗАПИСАТЬСЯ НА БЕСПЛАТНОЕ ПРОБНОЕ →</button>
+    <button class="btn-calc-submit" onclick="calcSubmit()" style="margin-top: 24px;">ЗАФИКСИРОВАТЬ ЦЕНУ И ЗАПИСАТЬСЯ НА БЕСПЛАТНОЕ ПРОБНОЕ →</button>
     <div class="calc-submit-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</div>
   </div>
 </section>
@@ -1381,7 +1381,7 @@
   // ДАННЫЕ ПРЕДМЕТОВ
   // ========================
   const subjectData = {
-    math:       { name: "Математика",     teacher: "Преподаватель математики • Эксперт ОГЭ/ЕГЭ",          exp: "опыт 5+ лет", letters: "МТ", img: "", basePrice: 1200, f1: "Разбираем сложные абстракции на визуальных моделях. Избавляем от страха перед геометрией, тригонометрией и текстовыми задачами.", f2: "Системный разбор структуры экзаменов. Учим оформлять вторую часть по строгим критериям ФИПИ, чтобы не потерять ни одного балла.", f3: "Уверенность у доски, ликвидация хронических пробелов в вычислениях и готовность к любым диагностическим работам." },
+    math:       { name: "Математика",     teacher: "Преподаватель математики",  teacherFull: "Ренат Альбертович, 21 год • Более 100 учеников", exp: "опыт 5+ лет", letters: "МТ", img: "photo.jpg", basePrice: 1000, f1: "Сначала разбираем теорию на понятных примерах, затем решаем задачи вместе. После каждого занятия — домашнее задание и разбор ошибок.", f2: "Работаем строго по структуре ОГЭ и ЕГЭ. Знаем где теряются баллы и закрываем именно эти места. Контрольные срезы каждые 2 недели — прогресс виден в цифрах.", f3: "Уверенность у доски, ликвидация хронических пробелов в вычислениях и готовность к любым диагностическим работам." },
     history:    { name: "История",        teacher: "Преподаватель истории • Профессиональный историк",     exp: "опыт 4 года",  letters: "ИС", img: "", basePrice: 1100, f1: "Превращаем хаотичный набор дат и правителей в стройную логическую цепочку причин и следствий.", f2: "Отработка сложных заданий на аргументацию и анализ исторических источников. Учим формулировать тезисы без воды.", f3: "Глубокое понимание исторических процессов, лёгкое запоминание дат через ассоциативные механики." },
     social:     { name: "Обществознание", teacher: "Преподаватель обществознания • Педагог-социолог",      exp: "опыт 3 года",  letters: "ОБ", img: "", basePrice: 1100, f1: "Изучаем право, экономику, политику и социологию на реальных кейсах из современных СМИ и законов РФ.", f2: "Ювелирный разбор второй части: учим давать точные развёрнутые примеры и иллюстрировать теоретические положения.", f3: "Способность ориентироваться в социальных процессах и корректно использовать терминологию для максимального балла." },
     russian:    { name: "Русский язык",   teacher: "Преподаватель русского языка • Филолог",               exp: "опыт 5 лет",   letters: "РУ", img: "", basePrice: 1200, f1: "Объясняем орфографию и пунктуацию через внутреннюю логику языка, а не бездумное зазубривание.", f2: "Пошаговый алгоритм написания сочинения: от точного выявления проблемы текста до выстраивания безупречной смысловой связи.", f3: "Грамотность в повседневной жизни и автоматическое применение правил на экзаменах без стресса." },
@@ -1428,13 +1428,13 @@
     if (!data) return;
     currentlySelectedSubjectName = data.name;
     document.getElementById('panel-subject-name').innerText = data.name;
-    document.getElementById('panel-teacher-name').innerText = data.teacher;
+    document.getElementById('panel-teacher-name').innerText = data.teacherFull || data.teacher;
     document.getElementById('teacher-experience').innerText = data.exp;
     document.getElementById('avatar-letters').innerText = data.letters;
     document.getElementById('panel-feature-1').innerText = data.f1;
     document.getElementById('panel-feature-2').innerText = data.f2;
     document.getElementById('panel-feature-3').innerText = data.f3;
-    document.getElementById('panel-price').innerText = 'от ' + data.basePrice.toLocaleString('ru') + ' ₽ / занятие';
+    document.getElementById('panel-price').innerText = subjectKey === 'math' ? 'от 1 000 ₽ / занятие' : 'от ' + data.basePrice.toLocaleString('ru') + ' ₽ / занятие';
     document.getElementById('panel-price-notice').innerText = subjectKey === 'math'
       ? 'Цена зависит от программы: школа, ОГЭ или ЕГЭ (база / профиль)'
       : 'Цена зависит от программы: школа, ОГЭ или ЕГЭ';
@@ -1608,11 +1608,17 @@
     calcState.subjects.forEach(key => {
       const d = subjectData[key];
       let baseP = d.basePrice;
-      // Математика профиль ЕГЭ
-      if (key === 'math' && calcState.goal === 'ege' && calcState.mathType === 'profile') {
-        baseP = 1500;
+      let priceMult = gMult;
+      // Математика — фиксированные цены
+      if (key === 'math') {
+        priceMult = 1.0;
+        if (calcState.goal === 'school') baseP = 1000;
+        else if (calcState.goal === 'oge') baseP = 1200;
+        else if (calcState.goal === 'ege' && calcState.mathType === 'base') baseP = 1500;
+        else if (calcState.goal === 'ege' && calcState.mathType === 'profile') baseP = 2000;
+        else baseP = 1000;
       }
-      const pricePerLesson = Math.round(baseP * gMult * fMult);
+      const pricePerLesson = Math.round(baseP * priceMult * fMult);
       subjectsTotalPerLesson += pricePerLesson;
       let label = d.name;
       if (key === 'math' && calcState.goal === 'ege' && calcState.mathType) {
