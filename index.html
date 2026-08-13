@@ -333,7 +333,6 @@
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       object-fit: cover;
-      object-position: top center;
       display: none;
     }
     .teacher-badge {
@@ -1442,7 +1441,7 @@
       : 'Цена зависит от программы: школа, ОГЭ или ЕГЭ';
     const imgEl = document.getElementById('teacher-img');
     const lettersEl = document.getElementById('avatar-letters');
-    if (data.img) { imgEl.src = data.img; imgEl.style.display='block'; lettersEl.style.display='none'; }
+    if (data.img) { imgEl.src = data.img; imgEl.style.display='block'; lettersEl.style.display='none'; imgEl.style.objectPosition = subjectKey === 'english' ? 'center 15%' : 'top center'; }
     else { imgEl.src=''; imgEl.style.display='none'; lettersEl.style.display='flex'; }
     const panel = document.getElementById('subject-details');
     panel.style.display = 'block';
