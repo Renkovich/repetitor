@@ -1330,12 +1330,12 @@
         <div class="calc-package-btn" data-package="8" onclick="calcSelectPackage(this)">
           <div class="calc-pkg-count">8 занятий</div>
           <div class="calc-pkg-name">Месяц</div>
-          <div class="calc-pkg-discount">Скидка 5%</div>
+          <div class="calc-pkg-discount">Скидка 3%</div>
         </div>
         <div class="calc-package-btn" data-package="24" onclick="calcSelectPackage(this)">
           <div class="calc-pkg-count">24 занятия</div>
           <div class="calc-pkg-name">Модуль</div>
-          <div class="calc-pkg-discount">Скидка 10%</div>
+          <div class="calc-pkg-discount">Скидка 5%</div>
         </div>
       </div>
     </div>
@@ -1523,10 +1523,10 @@
   function updateMultiDiscountNote() {
     const note = document.getElementById('multi-discount-note');
     if (calcState.subjects.length >= 2) {
-      note.textContent = '✓ Скидка за 2 и более предмета: −10%';
+      note.textContent = '✓ Скидка за 2 и более предмета: −5%';
       note.classList.add('active');
     } else {
-      note.textContent = 'При выборе 2 и более предметов — скидка 10%';
+      note.textContent = 'При выборе 2 и более предметов — скидка 5%';
       note.classList.remove('active');
     }
   }
@@ -1702,7 +1702,7 @@
     let discountsHTML = '';
 
     // Скидка за пакет
-    const packageDiscounts = { 1: 0, 8: 5, 24: 10 };
+    const packageDiscounts = { 1: 0, 8: 3, 24: 5 };
     const pkgDiscount = packageDiscounts[calcState.package] || 0;
     if (pkgDiscount > 0) {
       discountPercent += pkgDiscount;
@@ -1711,8 +1711,8 @@
 
     // Скидка за несколько предметов
     if (calcState.subjects.length >= 2) {
-      discountPercent += 10;
-      discountsHTML += `<div class="calc-discount-row"><span>Скидка за ${calcState.subjects.length} предмета</span><span>−10%</span></div>`;
+      discountPercent += 5;
+      discountsHTML += `<div class="calc-discount-row"><span>Скидка за ${calcState.subjects.length} предмета</span><span>−5%</span></div>`;
     }
 
     const finalTotal = Math.round(baseTotal * (1 - discountPercent / 100));
