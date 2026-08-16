@@ -202,6 +202,150 @@
       100% { transform: translateX(-50%); }
     }
 
+    /* ГАРАНТИЯ РЕЗУЛЬТАТА */
+    .guarantee-section { padding: 56px 24px 8px; }
+    .guarantee-card {
+      background: var(--gray);
+      border: 1px solid rgba(232,255,71,0.25);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .guarantee-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .guarantee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,255,71,0.1);
+      border: 1px solid rgba(232,255,71,0.35);
+      color: var(--accent);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .guarantee-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: guaranteePulse 1.8s ease-in-out infinite;
+    }
+    @keyframes guaranteePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(232,255,71,0.55); }
+      70% { box-shadow: 0 0 0 8px rgba(232,255,71,0); }
+    }
+    .guarantee-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .guarantee-title span { color: var(--accent); }
+    .guarantee-lead {
+      font-size: 16px;
+      color: #ccc;
+      line-height: 1.6;
+      max-width: 640px;
+      margin-bottom: 24px;
+    }
+    .guarantee-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .guarantee-highlight {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .guarantee-highlight-num {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .guarantee-highlight-text { font-size: 13px; color: #aaa; line-height: 1.4; }
+    .guarantee-toggle {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      background: transparent;
+      border: 1px solid rgba(232,255,71,0.3);
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .guarantee-toggle:hover { background: rgba(232,255,71,0.08); border-color: rgba(232,255,71,0.5); }
+    .guarantee-toggle svg {
+      width: 12px; height: 12px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s;
+    }
+    .guarantee-card.open .guarantee-toggle svg { transform: rotate(180deg); }
+    .guarantee-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .guarantee-details-inner { padding-top: 28px; }
+    .guarantee-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .guarantee-step {
+      border-top: 2px solid rgba(232,255,71,0.4);
+      padding-top: 12px;
+    }
+    .guarantee-step-num {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .guarantee-step-text { font-size: 13.5px; color: #bbb; line-height: 1.5; }
+    .guarantee-note {
+      font-size: 13.5px;
+      color: #999;
+      line-height: 1.7;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .guarantee-note b { color: var(--white); }
+    @media (max-width: 900px) {
+      .guarantee-section { padding: 40px 16px 4px; }
+      .guarantee-card { padding: 24px; }
+      .guarantee-highlights { grid-template-columns: 1fr; }
+      .guarantee-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ПОДХОД */
     .section-title {
       font-family: 'Unbounded', sans-serif;
@@ -1101,6 +1245,67 @@
   </div>
 </section>
 
+<!-- ГАРАНТИЯ РЕЗУЛЬТАТА -->
+<section class="guarantee-section">
+  <div class="guarantee-card" id="guarantee-card">
+    <div class="guarantee-top">
+      <div>
+        <div class="guarantee-badge"><span class="guarantee-dot"></span> Акция сентября</div>
+        <h2 class="guarantee-title">Гарантия <span>результата</span></h2>
+        <p class="guarantee-lead">
+          Не дотянули до согласованной цели по итогам пакета — добавим 3 занятия бесплатно, пока не выйдем на результат.
+        </p>
+      </div>
+    </div>
+
+    <div class="guarantee-highlights">
+      <div class="guarantee-highlight">
+        <div class="guarantee-highlight-num">1</div>
+        <div class="guarantee-highlight-text">Диагностика в начале и в конце пакета</div>
+      </div>
+      <div class="guarantee-highlight">
+        <div class="guarantee-highlight-num">3</div>
+        <div class="guarantee-highlight-text">Занятия бесплатно, если результат не достигнут</div>
+      </div>
+      <div class="guarantee-highlight">
+        <div class="guarantee-highlight-num">80%</div>
+        <div class="guarantee-highlight-text">Условие по посещаемости занятий</div>
+      </div>
+    </div>
+
+    <button class="guarantee-toggle" onclick="toggleGuarantee()">
+      <span id="guarantee-toggle-text">Как это работает</span>
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+
+    <div class="guarantee-details" id="guarantee-details">
+      <div class="guarantee-details-inner">
+        <div class="guarantee-steps">
+          <div class="guarantee-step">
+            <div class="guarantee-step-num">Шаг 1</div>
+            <div class="guarantee-step-text">Записываетесь на пакет занятий и вместе с преподавателем формулируете цель — балл на экзамене или оценку.</div>
+          </div>
+          <div class="guarantee-step">
+            <div class="guarantee-step-num">Шаг 2</div>
+            <div class="guarantee-step-text">На первом занятии — диагностика, фиксируем стартовый уровень.</div>
+          </div>
+          <div class="guarantee-step">
+            <div class="guarantee-step-num">Шаг 3</div>
+            <div class="guarantee-step-text">Занимаетесь по плану весь пакет.</div>
+          </div>
+          <div class="guarantee-step">
+            <div class="guarantee-step-num">Шаг 4</div>
+            <div class="guarantee-step-text">Итоговый срез в том же формате. Если прогресс меньше согласованного — добавляем 3 занятия бесплатно.</div>
+          </div>
+        </div>
+        <div class="guarantee-note">
+          <b>Условие:</b> гарантия действует при посещаемости от 80% занятий пакета и выполнении домашних заданий — мы гарантируем результат при вашем участии, а не вместо него. Действует по всем предметам, где есть преподаватель. Первое занятие (диагностика) — бесплатно всегда, независимо от акции.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- БЛОК ПРЕДМЕТОВ -->
 <section id="subjects">
   <h2 class="section-title">Выбери предмет</h2>
@@ -1502,6 +1707,22 @@
     el.classList.add('active');
     calcState.mathType = el.dataset.mathtype;
     calcUpdateResult();
+  }
+
+  function toggleGuarantee() {
+    const card = document.getElementById('guarantee-card');
+    const details = document.getElementById('guarantee-details');
+    const label = document.getElementById('guarantee-toggle-text');
+    const isOpen = card.classList.contains('open');
+    if (isOpen) {
+      card.classList.remove('open');
+      details.style.maxHeight = '0';
+      label.textContent = 'Как это работает';
+    } else {
+      card.classList.add('open');
+      details.style.maxHeight = details.scrollHeight + 'px';
+      label.textContent = 'Свернуть';
+    }
   }
 
   function toggleFaq(btn) {
