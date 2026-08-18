@@ -2042,7 +2042,10 @@
 
     const subjects = calcState.subjects.map(k => subjectData[k].name).join(', ');
     const format = calcState.format === 'individual' ? 'Индивидуально' : 'Мини-группа';
-    const goal = calcState.goal ? { school: 'Школьная программа', oge: 'Подготовка к ОГЭ', ege: 'Подготовка к ЕГЭ' }[calcState.goal] : 'Не указано';
+    let goal = calcState.goal ? { school: 'Школьная программа', oge: 'Подготовка к ОГЭ', ege: 'Подготовка к ЕГЭ' }[calcState.goal] : 'Не указано';
+    if (calcState.goal === 'ege' && calcState.mathType) {
+      goal += calcState.mathType === 'base' ? ' (база)' : ' (профиль)';
+    }
     const grade = calcState.grade || 'Не указан';
     const pkg = calcState.package + ' зан.';
     const total = document.getElementById('calc-total-price').textContent;
