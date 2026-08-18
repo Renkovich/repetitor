@@ -194,7 +194,28 @@
     @media (max-width: 900px) {
       .reviews-grid { grid-template-columns: 1fr; }
       .cta-block { padding: 32px 24px; }
+      .review-card.is-extra { display: none; }
+      .show-more-wrap { display: flex; }
     }
+
+    .show-more-wrap {
+      display: none;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    .btn-show-more {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(232,255,71,0.3);
+      padding: 14px 28px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-show-more:hover { background: rgba(232,255,71,0.08); border-color: rgba(232,255,71,0.5); }
   </style>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -339,7 +360,7 @@
       <div class="review-result">ЕГЭ: 80 баллов</div>
     </div>
 
-        <div class="review-card" style="animation-delay:0.64s">
+        <div class="review-card is-extra" style="animation-delay:0.64s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">С</div>
         <div class="review-meta">
@@ -351,7 +372,7 @@
       <div class="review-result">ЕГЭ: 72 балла</div>
     </div>
 
-    <div class="review-card" style="animation-delay:0.72s">
+    <div class="review-card is-extra" style="animation-delay:0.72s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">М</div>
         <div class="review-meta">
@@ -362,7 +383,7 @@
       <div class="review-text">За пару месяцев Александр помог разобраться во всех типах задач и освоить практическую часть. Перестала зазубривать шаблоны и наконец-то начала понимать логику решений. Объясняет структурно и без воды, всегда на связи если возникают вопросы.</div>
       <div class="review-result">ОГЭ: 5 баллов</div>
     </div>
-    <div class="review-card" style="animation-delay:0.8s">
+    <div class="review-card is-extra" style="animation-delay:0.8s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">Л</div>
         <div class="review-meta">
@@ -374,7 +395,7 @@
       <div class="review-result">Оценка: 5</div>
     </div>
 
-    <div class="review-card" style="animation-delay:0.88s">
+    <div class="review-card is-extra" style="animation-delay:0.88s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">А</div>
         <div class="review-meta">
@@ -386,7 +407,7 @@
       <div class="review-result">Оценка: 5</div>
     </div>
 
-    <div class="review-card" style="animation-delay:0.96s">
+    <div class="review-card is-extra" style="animation-delay:0.96s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">М</div>
         <div class="review-meta">
@@ -398,7 +419,7 @@
       <div class="review-result">Оценка: 5</div>
     </div>
 
-    <div class="review-card" style="animation-delay:1.04s">
+    <div class="review-card is-extra" style="animation-delay:1.04s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">В</div>
         <div class="review-meta">
@@ -409,7 +430,7 @@
       <div class="review-text">Готовлюсь к ЕГЭ и мне очень нравится заниматься с Ангелиной химией и биологией. Занятия начинаются вовремя и проходят в комфортной обстановке. Ангелина интересно и понятно объясняет темы, всегда терпелива и готова ответить на любые вопросы.</div>
     </div>
 
-    <div class="review-card" style="animation-delay:1.12s">
+    <div class="review-card is-extra" style="animation-delay:1.12s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">М</div>
         <div class="review-meta">
@@ -421,7 +442,7 @@
       <div class="review-result">Оценка: 5</div>
     </div>
 
-    <div class="review-card" style="animation-delay:1.2s">
+    <div class="review-card is-extra" style="animation-delay:1.2s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">А</div>
         <div class="review-meta">
@@ -433,7 +454,7 @@
       <div class="review-result">Оценка: 5</div>
     </div>
 
-    <div class="review-card" style="animation-delay:1.28s">
+    <div class="review-card is-extra" style="animation-delay:1.28s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">А</div>
         <div class="review-meta">
@@ -445,7 +466,7 @@
       <div class="review-result">ОГЭ: 5 баллов</div>
     </div>
 
-    <div class="review-card" style="animation-delay:1.36s">
+    <div class="review-card is-extra" style="animation-delay:1.36s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">В</div>
         <div class="review-meta">
@@ -457,7 +478,7 @@
       <div class="review-result">Оценка: 5</div>
     </div>
 
-    <div class="review-card" style="animation-delay:1.44s">
+    <div class="review-card is-extra" style="animation-delay:1.44s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">С</div>
         <div class="review-meta">
@@ -468,7 +489,7 @@
       <div class="review-text">Хочу выразить благодарность Ангелине за профессионализм и терпение. Объясняет материал доступно и интересно, помогает разобраться в сложных темах. Уроки проходят легко и продуктивно. Рекомендую.</div>
     </div>
 
-    <div class="review-card" style="animation-delay:1.52s">
+    <div class="review-card is-extra" style="animation-delay:1.52s">
       <div class="review-header">
         <div class="review-avatar"><img src="" alt="">М</div>
         <div class="review-meta">
@@ -479,6 +500,10 @@
       <div class="review-text">Милая приятная девушка с отличными знаниями по заявленным предметам и умеющая их преподать. Ребёнок стала лучшей в классе по химии всего за несколько занятий. Очень рады, что именно Ангелина обучает.</div>
     </div>
 
+  </div>
+
+  <div class="show-more-wrap" id="show-more-wrap">
+    <button class="btn-show-more" onclick="showMoreReviews()">Показать ещё отзывы</button>
   </div>
 
   <div style="text-align:center; margin-top: 40px;">
@@ -499,6 +524,15 @@
 <footer>
   <div class="footer-note">© 2026 Онлайн-школа «ОТ и ДО» · <a href="index.html" style="color:#555; text-decoration:none;">Главная</a> · <a href="privacy.html" style="color:#555; text-decoration:none;">Политика конфиденциальности</a></div>
 </footer>
+
+<script>
+  function showMoreReviews() {
+    document.querySelectorAll('.review-card.is-extra').forEach(card => {
+      card.style.display = 'flex';
+    });
+    document.getElementById('show-more-wrap').style.display = 'none';
+  }
+</script>
 
 </body>
 </html>
