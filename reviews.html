@@ -191,13 +191,6 @@
     }
     .footer-note { font-size: 13px; color: #333; }
 
-    @media (max-width: 900px) {
-      .reviews-grid { grid-template-columns: 1fr; }
-      .cta-block { padding: 32px 24px; }
-      .review-card.is-extra { display: none; }
-      .show-more-wrap { display: flex; }
-    }
-
     .show-more-wrap {
       display: none;
       justify-content: center;
@@ -216,6 +209,13 @@
       transition: background 0.2s, border-color 0.2s;
     }
     .btn-show-more:hover { background: rgba(232,255,71,0.08); border-color: rgba(232,255,71,0.5); }
+
+    @media (max-width: 900px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+      .cta-block { padding: 32px 24px; }
+      .review-card.is-extra { display: none; }
+      .show-more-wrap { display: flex; }
+    }
   </style>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
