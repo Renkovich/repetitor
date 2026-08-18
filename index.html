@@ -2051,7 +2051,7 @@
       `Имя: ${name}\nТелефон: ${phone}\nПредметы: ${subjects}\nФормат: ${format}\nЦель: ${goal}\nКласс: ${grade}\nПакет: ${pkg}\nИтого: ${total}`
     );
 
-    fetch('https://formspree.io/f/mgobayyd', {
+    fetch('https://functions.yandexcloud.net/d4eu2of0eevp9uvbnqjq', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&subjects=${encodeURIComponent(subjects)}&format=${encodeURIComponent(format)}&goal=${encodeURIComponent(goal)}&grade=${encodeURIComponent(grade)}&package=${encodeURIComponent(pkg)}&total=${encodeURIComponent(total)}`
