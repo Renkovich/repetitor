@@ -1739,7 +1739,11 @@
       : 'Цена зависит от программы: школа, ОГЭ или ЕГЭ';
     const imgEl = document.getElementById('teacher-img');
     const lettersEl = document.getElementById('avatar-letters');
-    if (data.img) { imgEl.src = data.img; imgEl.style.display='block'; lettersEl.style.display='none'; imgEl.style.objectPosition = subjectKey === 'english' ? 'center 15%' : 'top center'; }
+    if (data.img) {
+      imgEl.src = data.img; imgEl.style.display='block'; lettersEl.style.display='none';
+      const photoOffsetY = { english: '35%', literature: '45%' };
+      imgEl.style.objectPosition = 'center ' + (photoOffsetY[subjectKey] || '0%');
+    }
     else { imgEl.src=''; imgEl.style.display='none'; lettersEl.style.display='flex'; }
     const panel = document.getElementById('subject-details');
     panel.style.display = 'block';
