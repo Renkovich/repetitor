@@ -1741,7 +1741,7 @@
     const lettersEl = document.getElementById('avatar-letters');
     if (data.img) {
       imgEl.src = data.img; imgEl.style.display='block'; lettersEl.style.display='none';
-      const photoOffsetY = { english: '35%', literature: '45%' };
+      const photoOffsetY = { english: '35%', literature: '45%', russian: '35%' };
       imgEl.style.objectPosition = 'center ' + (photoOffsetY[subjectKey] || '0%');
     }
     else { imgEl.src=''; imgEl.style.display='none'; lettersEl.style.display='flex'; }
